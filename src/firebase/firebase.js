@@ -1,6 +1,7 @@
 let admin = require("firebase-admin");
 let serviceAccount = require("./lienka-d28a4-firebase-adminsdk-7my6l-53df53a4a8.json");
 
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://lienka-d28a4.firebaseio.com"
@@ -20,10 +21,13 @@ module.exports = {
     },
 
     readUserData: async (userId) => {
-        return db.ref('users/' + userId).once("value", function(snapshot) {
-            result = snapshot.val();
-            return result;
+        let res;
+        await db.ref('users/' + userId).once("value", function(snapshot) {
+
+            res = snapshot.val();
+
         });
+        return res;
     },
 
     existsUser: async (username) => {

@@ -1,6 +1,6 @@
 /*https://www.materialpalette.com/colors*/
 body {
-  background: #fbe9e7;
+  background: #fbe9e7; /* f0b90c,  fbe9e7*/
 }
 
 .App {
@@ -8,7 +8,7 @@ body {
   width: 1300px;
   margin-left: auto;
   margin-right: auto;
-  background: #ffccbc;
+  background: #ffccbc; /*ffccbc */
   border-radius: 10px;
 }
 

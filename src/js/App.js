@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import FirstPage from "./FirstPage";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Switch, Route } from 'react-router';
+import Home from "./Home";
 
 
 /*https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/#react-firebase-setup*/
@@ -22,19 +24,23 @@ class App extends Component {
   render() {
     return (
         <MuiThemeProvider>
-            <FirstPage/>
+            <Switch>
+                <Route exact path="/" component={FirstPage}/>
+                <Route exact path="/home" component={Home}/>
+            </Switch>
         </MuiThemeProvider>
 
-        /*<Router>
+        /*
+                    <MuiThemeProvider>
+                        <Route
+                            exact path={"/"}
+                            component={() => <FirstPage />}
+                        />
+
+            </MuiThemeProvider>
             <div>
-                <Navigation authUser={this.state.authUser} />
 
-                <hr/>
 
-                <Route
-                    exact path={routes.LANDING}
-                    component={() => <FirstPage />}
-                />
                 <Route
                     exact path={routes.SIGN_UP}
                     component={() => <SignUpPage />}
@@ -55,8 +61,8 @@ class App extends Component {
                     exact path={routes.ACCOUNT}
                     component={() => <AccountPage />}
                 />
-            </div>
-        </Router>*/
+            </div>*/
+
     );
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import div from 'react-dom';
 import '../css/App.css';
 import Button from './Button'
 //import TextField from './TextField'
@@ -8,6 +9,7 @@ import axios from 'axios';
 //import { TextField, validator } from 'react-textfield';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
+import { Link } from 'react-router-dom'
 
 
 let randomstring = require("randomstring");
@@ -47,7 +49,9 @@ class EntryForm extends Component {
                 password: "",
                 password2: "",
                 email: "",
-            }
+            },
+            successfulRegistration: false,
+            successfulLogin: false,
 
         };
         this.usernameRef = React.createRef();
@@ -62,6 +66,17 @@ class EntryForm extends Component {
         this.setState({
             text: e
         })
+    };
+
+    login = () => {
+        if (this.isValidLogin()){
+            axios.post('/login', this.state.registration )
+                .then(res => {
+                    this.errorHandle(res.data.errorCode, res.data.errorMessage);
+                    console.log("RES: " + res.data.errorMessage);
+                    //console.log("RES DATA: " +res.data.email);
+                })
+        }
     };
 
     register = () => {
@@ -104,7 +119,12 @@ class EntryForm extends Component {
             error['password'] = "";
             error['email'] = "";
             error['password2'] = "";
-            this.setState({registration, error})
+            this.setState({registration, error});
+
+            this.setState({
+                successfulRegistration: true,
+                successfulLogin: true,
+            })
         }
 
     };
@@ -113,6 +133,35 @@ class EntryForm extends Component {
         const { registration } = this.state;
         registration[e.target.name] = e.target.value;
         this.setState({ registration })
+
+    };
+
+    isValidLogin = () => {
+        let isValid = true;
+        const { registration } = this.state;
+        const { error } = this.state;
+        if(this.state.registration.username === ""){
+            isValid = false;
+            error['username'] = "Prázdne pole";
+        }else{
+            error['username'] = "";
+        }
+
+        if(this.state.registration.password === ""){
+            isValid = false;
+            error['username'] = "Prázdne pole";
+        }else{
+            error['username'] = "";
+        }
+
+        if(!isValid){
+            registration['password'] = "";
+        }
+
+        this.setState({error});
+        this.setState({registration});
+
+        return isValid;
 
     };
 
@@ -157,6 +206,9 @@ class EntryForm extends Component {
 
 
     showSignIn = () =>{
+
+
+
       return(
           <div className="showForm prihlasenie" >
 
@@ -177,7 +229,9 @@ class EntryForm extends Component {
                           floatingLabelFocusStyle={styles.floatingLabelStyle}
                           underlineFocusStyle={styles.underlineStyle}/>
 
-              <Button icon={require("../images/login2.png")} text={"Prihlásenie"} buttonClick={ this.handleClick} clName={"button btn"} />
+              <Link to="/home">
+                  <Button icon={require("../images/login2.png")} text={"Prihlásenie"} buttonClick={ this.login} clName={"button btn"} />
+              </Link>
               <p>Nemáte ešte účet? <span onClick={() => {this.setState({text: "Registrácia"}); this.errorHandle("0", "OK") }}>Zaregistrujte sa!</span></p>
 
 
@@ -222,7 +276,9 @@ class EntryForm extends Component {
 
 
 
-                <Button icon={require("../images/signin.png")} text={"Registrácia"} buttonClick={this.register} clName={"button btn"} />
+                <Link to="/home">
+                    <Button icon={require("../images/signin.png")} text={"Registrácia"} buttonClick={this.register} clName={"button btn"} />
+                </Link>
                 <p>Máte už účet? <span onClick={() => { this.setState({text: "Prihlásenie"}); this.errorHandle("0", "OK") }}>Prihláste sa!</span></p>
 
 
