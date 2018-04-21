@@ -27,6 +27,10 @@ const color4 = "#FFF6F3"; // hover
 const color5 = "#FF8858"; //
 
 const menuStyle = {
+    backgroundColor: color4, borderRadius: "10px 10px 0 0",
+};
+
+const menuItemStyle = {
     backgroundColor: color4,
 };
 
@@ -66,19 +70,19 @@ export default class Menu extends React.Component {
 
 
 
-                <ToolbarGroup>
+                <ToolbarGroup style={menuStyle}>
 
                     <Avatar size={35} style={style}>a</Avatar>
                     <ToolbarTitle text="adamhala007" />
-                    <IconMenu
+                    <IconMenu style={menuItemStyle}
                         iconButtonElement={
                             <IconButton touch={true}>
-                                <NavigationExpandMoreIcon style={menuStyle} />
+                                <NavigationExpandMoreIcon style={menuItemStyle} />
                             </IconButton>
                         }
                     >
-                        <MenuItem primaryText="Nastavenia" />
-                        <MenuItem primaryText="Credits" />
+                        <MenuItem primaryText="Nastavenia" style={menuItemStyle} />
+                        <MenuItem primaryText="Credits" style={menuItemStyle}/>
                     </IconMenu>
                     <ToolbarSeparator />
                     <IconButton iconClassName="connect"  style={iconStyles} />
