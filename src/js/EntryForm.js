@@ -9,7 +9,7 @@ import axios from 'axios';
 //import { TextField, validator } from 'react-textfield';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
-import { Link } from 'react-router-dom'
+import { Link, withRouter} from 'react-router-dom'
 
 
 let randomstring = require("randomstring");
@@ -69,12 +69,18 @@ class EntryForm extends Component {
     };
 
     login = () => {
+
         if (this.isValidLogin()){
             axios.post('/login', this.state.registration )
                 .then(res => {
                     this.errorHandle(res.data.errorCode, res.data.errorMessage);
-                    console.log("RES: " + res.data.errorMessage);
+                    if(this.state.successfulLogin){
+                        this.props.history.push('/home');
+                    }
+                    //console.log("RES: " + res.data.errorMessage);
                     //console.log("RES DATA: " +res.data.email);
+
+
                 })
         }
     };
@@ -92,6 +98,9 @@ class EntryForm extends Component {
             axios.post('/register', this.state.registration )
                 .then(res => {
                     this.errorHandle(res.data.errorCode, res.data.errorMessage);
+                    if(this.state.successfulRegistration){
+                        this.props.history.push('/home');
+                    }
                     console.log("RES: " + res.data.errorMessage);
                     //console.log("RES DATA: " +res.data.email);
                 })
@@ -124,6 +133,13 @@ class EntryForm extends Component {
             this.setState({
                 successfulRegistration: true,
                 successfulLogin: true,
+            })
+
+        }
+        else{
+            this.setState({
+                successfulRegistration: false,
+                successfulLogin: false,
             })
         }
 
@@ -229,9 +245,9 @@ class EntryForm extends Component {
                           floatingLabelFocusStyle={styles.floatingLabelStyle}
                           underlineFocusStyle={styles.underlineStyle}/>
 
-              <Link to="/home">
+
                   <Button icon={require("../images/login2.png")} text={"Prihlásenie"} buttonClick={ this.login} clName={"button btn"} />
-              </Link>
+
               <p>Nemáte ešte účet? <span onClick={() => {this.setState({text: "Registrácia"}); this.errorHandle("0", "OK") }}>Zaregistrujte sa!</span></p>
 
 
@@ -276,9 +292,9 @@ class EntryForm extends Component {
 
 
 
-                <Link to="/home">
-                    <Button icon={require("../images/signin.png")} text={"Registrácia"} buttonClick={this.register} clName={"button btn"} />
-                </Link>
+
+                <Button icon={require("../images/signin.png")} text={"Registrácia"} buttonClick={this.register} clName={"button btn"} />
+
                 <p>Máte už účet? <span onClick={() => { this.setState({text: "Prihlásenie"}); this.errorHandle("0", "OK") }}>Prihláste sa!</span></p>
 
 
@@ -310,4 +326,4 @@ class EntryForm extends Component {
     }
 }
 
-export default EntryForm;
+export default withRouter(EntryForm);

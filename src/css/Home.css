@@ -32,13 +32,18 @@
     float: left;
     border-radius: 30px;
     border: 1px solid #000;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
 }
 
 .easyProgrammingImage:hover{
     cursor: pointer;
     box-shadow: 0 0 50px 5px rgba(240, 110, 25, 0.5);
     background: url("../images/easyprogHover.png") no-repeat;
-
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
 }
 
 
@@ -75,6 +80,9 @@
     float: left;
     border-radius: 30px;
     border: 1px solid #000;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+    transition-delay: 0s;
     /*margin-left: 10px;*/
 }
 
@@ -82,6 +90,9 @@
     cursor: pointer;
     box-shadow: 0 0 50px 5px rgba(240, 110, 25, 0.5);
     background: url("../images/blocklyPuzzleHover.png") no-repeat;
+    transition-duration: 0.1s;
+    transition-timing-function: linear;
+    transition-delay: 0s;
 }
 
 .blocklyText{

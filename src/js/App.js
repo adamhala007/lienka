@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import '../css/App.css';
 import FirstPage from "./FirstPage";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Switch, Route } from 'react-router';
+import {BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import Home from "./Home";
+import EasyProg from "./EasyProg";
 
 
 /*https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/#react-firebase-setup*/
@@ -24,47 +25,21 @@ class App extends Component {
   render() {
     return (
         <MuiThemeProvider>
-            <Switch>
-                <Route exact path="/" component={FirstPage}/>
-                <Route exact path="/home" component={Home}/>
-            </Switch>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/" history={this.props.history} component={FirstPage}/>
+                    <Route exact path="/home" history={this.props.history} component={Home}/>
+
+
+                    <Route path="/easyprog" history={this.props.history} component={EasyProg}/>
+
+
+                </Switch>
+            </BrowserRouter>
         </MuiThemeProvider>
-
-        /*
-                    <MuiThemeProvider>
-                        <Route
-                            exact path={"/"}
-                            component={() => <FirstPage />}
-                        />
-
-            </MuiThemeProvider>
-            <div>
-
-
-                <Route
-                    exact path={routes.SIGN_UP}
-                    component={() => <SignUpPage />}
-                />
-                <Route
-                    exact path={routes.SIGN_IN}
-                    component={() => <SignInPage />}
-                />
-                <Route
-                    exact path={routes.PASSWORD_FORGET}
-                    component={() => <PasswordForgetPage />}
-                />
-                <Route
-                    exact path={routes.HOME}
-                    component={() => <FirstPage />}
-                />
-                <Route
-                    exact path={routes.ACCOUNT}
-                    component={() => <AccountPage />}
-                />
-            </div>*/
 
     );
   }
 }
 
-export default App;
+export default (App);
