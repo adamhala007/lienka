@@ -31,7 +31,7 @@ class App extends Component {
                     <Route exact path="/home" history={this.props.history} component={Home}/>
 
 
-                    <Route path="/easyprog" history={this.props.history} component={EasyProg}/>
+                    <Route exact path="/easyprog" history={this.props.history} component={EasyProg}/>
 
 
                 </Switch>

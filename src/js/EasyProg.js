@@ -23,7 +23,7 @@ class EasyProg extends Component {
                     </div>
 
                     <div className="simulator">
-                        <SimulatorPanel rows={10} cols={10} />
+                        <SimulatorPanel rows={8} cols={8} />
                     </div>
 
                     <div className="commands">

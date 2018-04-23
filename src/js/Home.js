@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Menu from "./Menu";
 import '../css/Home.css';
-import { withRouter} from 'react-router-dom'
+import { Link, withRouter} from 'react-router-dom'
 
 const color1 = "#FF4900"; // title
 const color2 = "#FF5A19"; // button color
@@ -13,6 +13,11 @@ class Home extends Component {
     constructor(props){
         super(props);
     }
+
+    callEasyprog =() =>{
+        this.props.history.push("/easyprog");
+    }
+
     render (){
         return(
             <div className={"Home"}>
@@ -20,7 +25,7 @@ class Home extends Component {
                 <div className={"content"}>
 
                     <div className="page">
-                        <div className="easyProgrammingImage" onClick={this.props.history.push('/easyprog')} />
+                        <div className="easyProgrammingImage" onClick={this.callEasyprog}/>
                         <div className="easyProgrammingText" >
                             <h2>Pre deti</h2>
                             <p>Vyklikaním postupností jednoduchých príkazov (šípka hore, dole, vľavo, vpravo, zvukový signál, svetelný signál, atď.) sa dajú vyskladať jednoduché programi.</p>

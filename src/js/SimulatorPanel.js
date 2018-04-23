@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "../css/SimulatorPanel.css"
+import Square from "./Square";
 
 
 class SimulatorPanel extends Component{
@@ -9,34 +10,53 @@ class SimulatorPanel extends Component{
         this.state = {
             rows: this.props.rows,
             cols: this.props.cols,
+            squares: []
         }
 
     }
 
+    componentDidMount () {
+
+
+    }
+
+
     render(){
+
+        let w = 510;
+        let h = 510;
+
+        for(let i=0; i<this.state.cols; i++){
+            for(let j=0; j<this.state.rows; j++){
+                let val1 = (i === Math.floor(this.state.cols/2));
+                let val2 = (j === Math.floor(this.state.rows/2));
+
+                if( val1 && val2){
+                    console.log(i + " " + j);
+                    this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} ladyBug={true}/>)
+                }else{
+
+                    this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} ladyBug={false}/>)
+                }
+
+            }
+
+        }
         return(
-            <div className="simulatorPanel-content">
-                <div className="controlPanel-upperControls">
-                    <div className="flex-grid">
+            <div className="simulatorPanel-content"  >
+
+                    <div className="flex-grid" ref={input => {this.myInput = input;}}>
+                        {this.state.squares}
+
                         <div className="col">
-                            <div id="controlPanel-sound"/>
-                            <div id="controlPanel-left"/>
-                            <div id="controlPanel-blank"/>
+
                         </div>
                         <div className="col">
-                            <div id="controlPanel-up"/>
-                            <div id="controlPanel-go"/>
-                            <div id="controlPanel-down"/>
-                        </div>
-                        <div className="col">
-                            <div id="controlPanel-light"/>
-                            <div id="controlPanel-right"/>
-                            <div id="controlPanel-blank"/>
+
                         </div>
                     </div>
 
 
-                </div>
             </div>
         );
     }

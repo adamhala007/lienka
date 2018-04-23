@@ -25,7 +25,7 @@
 .simulator{
     width: 50%;
     height: auto;
-    background-color: blue;
+    /*background-color: blue;*/
     float: left;
 }
 
