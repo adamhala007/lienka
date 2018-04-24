@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import "../css/SimulatorPanel.css"
+import "../css/CommandPanel.css"
 import Square from "./Square";
 
 
-class SimulatorPanel extends Component{
+class CommandPanel extends Component{
 
     constructor(props){
         super(props);
@@ -17,13 +17,20 @@ class SimulatorPanel extends Component{
 
     componentDidMount () {
 
+        this.setState({squares: []});
 
     }
 
 
     render(){
 
-        let w = 510;
+        this.state.squares=[]
+
+        for(let i = 0; i< this.props.program.length; i++){
+            this.state.squares.push(<Square key={i} i={i} width={60} height={60} image={this.props.program[i]} lastClicked={this.props.lastClicked}/>)
+        }
+
+        /*let w = 510;
         let h = 510;
 
         for(let i=0; i<this.state.cols; i++){
@@ -32,28 +39,22 @@ class SimulatorPanel extends Component{
                 let val2 = (j === Math.floor(this.state.rows/2));
 
                 if( val1 && val2){
+                    console.log(i + " " + j);
                     this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug"}/>)
                 }else{
 
-                    this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={""}/>)
+                    this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"light"}/>)
                 }
 
             }
 
-        }
+        }*/
         return(
-            <div className="simulatorPanel-content"  >
+            <div className="commandPanel-content"  >
 
-                    <div className="flex-grid" ref={input => {this.myInput = input;}}>
-                        {this.state.squares}
-
-                        <div className="col">
-
-                        </div>
-                        <div className="col">
-
-                        </div>
-                    </div>
+                <div className="flex-grid">
+                    {this.state.squares}
+                </div>
 
 
             </div>
@@ -61,4 +62,4 @@ class SimulatorPanel extends Component{
     }
 }
 
-export default SimulatorPanel;
+export default CommandPanel;

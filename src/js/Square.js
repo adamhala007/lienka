@@ -29,7 +29,7 @@ class Square extends Component {
             squareStyle: {
                 width: Math.floor(Math.min(this.props.width, this.props.height)) + "px",
                 height: Math.floor(Math.min(this.props.width, this.props.height)) + "px",
-                backgroundColor: "#fff",
+                backgroundColor: "#FFF6F3",
                 backgroundImage: 'url(' + this.imageUrl + ')',
                 border: "1px solid #000",
                 color: 'black',
@@ -45,12 +45,16 @@ class Square extends Component {
         };
     }
 
+    lastClicked =() =>{
+        this.props.lastClicked(this.state.i);
+    }
+
     render(){
 
         return(
             <div>
-                {!this.state.ladyBug && <div style={this.state.squareStyle} />}
-                {this.state.ladyBug && <div className={"ladyBug"} />}
+                {this.props.image === "" && <div style={this.state.squareStyle} onClick={this.lastClicked} />}
+                {this.props.image !== "" && <div className={this.props.image} onClick={this.lastClicked} />}
             </div>
 
         )
