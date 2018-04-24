@@ -19,8 +19,8 @@ class EasyProg extends Component {
         this.state = {
             program: [],
             lastClicked: undefined,
-
         }
+        this.simulator = React.createRef();
     }
 
     lastClicked=(clicked)=>{
@@ -47,7 +47,9 @@ class EasyProg extends Component {
         }
     };
 
-
+    simulate = () =>{
+        this.simulator.current.timer();
+    }
 
     render (){
         return(
@@ -56,11 +58,11 @@ class EasyProg extends Component {
                 <div className={"content"}>
 
                     <div className="controls">
-                        <ControlPanel addCommand={this.addCommand} delete={this.delete}/>
+                        <ControlPanel addCommand={this.addCommand} delete={this.delete} simulate={this.simulate}/>
                     </div>
 
                     <div className="simulator">
-                        <SimulatorPanel rows={8} cols={8} />
+                        <SimulatorPanel rows={8} cols={8} program={this.state.program} ref={this.simulator}/>
                     </div>
 
                     <div className="commands">

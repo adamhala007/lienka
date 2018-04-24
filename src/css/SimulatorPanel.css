@@ -27,3 +27,34 @@
     background-color: white;
     border: 1px solid #000;
 }
+
+.ladyBug90{
+    background-image: url("../images/ladybird.png") ;
+    width: 61px;
+    height: 61px;
+    background-size: contain;
+
+    background-color: white;
+    border: 1px solid #000;
+    transform: rotate(90deg);
+}
+.ladyBug180{
+    background-image: url("../images/ladybird.png") ;
+    width: 61px;
+    height: 61px;
+    background-size: contain;
+
+    background-color: white;
+    border: 1px solid #000;
+    transform: rotate(180deg);
+}
+.ladyBug270{
+    background-image: url("../images/ladybird.png") ;
+    width: 61px;
+    height: 61px;
+    background-size: contain;
+
+    background-color: white;
+    border: 1px solid #000;
+    transform: rotate(270deg);
+}

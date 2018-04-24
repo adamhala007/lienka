@@ -22,7 +22,7 @@ class ControlPanel extends Component{
                         <div className="col">
                             <div id="controlPanel-sound" onClick={() => this.props.addCommand("sound")} />
                             <div id="controlPanel-left" onClick={() => this.props.addCommand("left")} />
-                            <div id="controlPanel-blank" />
+                            <div id="controlPanel-go" onClick={() => this.props.simulate()} />
                         </div>
                         <div className="col">
                             <div id="controlPanel-up" onClick={() => this.props.addCommand("up")} />
