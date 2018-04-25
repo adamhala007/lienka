@@ -62,11 +62,13 @@ class SimulatorPanel extends Component{
                     index : this.state.index + 1,
                 })
             }else if(this.props.program[this.state.index] === "light"){
+                alert("Light");
                 console.log("Light");
                 this.setState({
                     index : this.state.index + 1,
                 })
             }else if(this.props.program[this.state.index] === "sound"){
+                alert("Sound");
                 console.log("Sound");
                 this.setState({
                     index : this.state.index + 1,

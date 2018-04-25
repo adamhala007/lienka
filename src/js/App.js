@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import Home from "./Home";
 import EasyProg from "./EasyProg";
+import BlocklyProg from "./BlocklyProg";
 
 
 /*https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/#react-firebase-setup*/
@@ -32,6 +33,7 @@ class App extends Component {
 
 
                     <Route exact path="/easyprog" history={this.props.history} component={EasyProg}/>
+                    <Route exact path="/blocklyprog" history={this.props.history} component={BlocklyProg}/>
 
 
                 </Switch>

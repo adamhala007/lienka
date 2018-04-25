@@ -16,7 +16,11 @@ class Home extends Component {
 
     callEasyprog =() =>{
         this.props.history.push("/easyprog");
-    }
+    };
+
+    callBlocklyprog =() =>{
+        this.props.history.push("/blocklyprog");
+    };
 
     render (){
         return(
@@ -34,7 +38,7 @@ class Home extends Component {
                     </div>
 
                     <div className="page">
-                        <div className="blocklyImage" />
+                        <div className="blocklyImage" onClick={this.callBlocklyprog} />
                         <div className="blocklyText" >
                             <h2>Pre mladých študentov programovania</h2>
                             <p>Pomocou Blockly vedia vyskladať jednoduché programy ťahaním blokov, ako napríklad cykly (for, while), podmienené príkazy (if), atď.</p>
