@@ -8,8 +8,11 @@ import CommandPanel from "./CommandPanel";
 import {up, down, left, right, sound, light} from "./Blockly/Blockly";
 
 import Blockly from 'node-blockly/browser';
+import Workspace from 'node-blockly/browser';
 
 import BlocklyDrawer, { Block, Category } from 'react-blockly-drawer';
+import {saveBlocklyProgram} from '../firebase/client'
+import axios from 'axios';
 
 const color1 = "#FF4900"; // title
 const color2 = "#FF5A19"; // button color
@@ -17,32 +20,6 @@ const color3 = "#FFB79A"; // background color
 const color4 = "#FFF6F3"; // hover
 const color5 = "#FF8858"; //
 
-const helloWorld =  {
-    name: 'HelloWorld',
-    category: 'Demo',
-    block: {
-        init: function () {
-            this.jsonInit({
-                message0: 'Hello %1',
-                args0: [
-                    {
-                        type: 'field_input',
-                        name: 'NAME',
-                        check: 'String',
-                    },
-                ],
-                output: 'String',
-                colour: 160,
-                tooltip: 'Says Hello',
-            });
-        },
-    },
-    generator: (block) => {
-        const message = `'${block.getFieldValue('NAME')}'` || '\'\'';
-        const code = `console.log('Hello ${message}')`;
-        return [code, Blockly.JavaScript.ORDER_MEMBER];
-    },
-};
 
 class BlocklyProg extends Component {
 
@@ -83,6 +60,28 @@ class BlocklyProg extends Component {
         this.simulator.current.timer();
     }
 
+    load = (xml_text) => {
+        let xml = Blockly.Xml.textToDom(xml_text);
+        Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
+    };
+
+
+    save=()=>{
+        //console.log(workspace);
+        let xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+
+        let xml_text = Blockly.Xml.domToText(xml);
+        console.log(xml);
+        let programName = prompt("Please enter the name of the program:" , "");
+        if (programName === null || programName === "") {
+
+        } else {
+            saveBlocklyProgram("adamhala007", programName, xml_text);
+        }
+
+        console.log(xml_text);
+    }
+
     render (){
         return(
             <div className={"Home"}>
@@ -94,6 +93,13 @@ class BlocklyProg extends Component {
                             console.log(code, workspace);
                         }}
                     >
+
+                        <Category name="Movement" colour="200" >
+                            <Block type="forward" tools={[up]}/>
+                            <Block type="backward"/>
+                            <Block type="left" />
+                            <Block type="right" />
+                        </Category>
 
                         <Category name="Cycles" colour="200">
                             <Block type="controls_if" />
@@ -116,6 +122,7 @@ class BlocklyProg extends Component {
                             <Block type="text" />
                             <Block type="move_forward"/>
                             <Block type="move_backward"/>
+
                         </Category>
                     </BlocklyDrawer>
 
@@ -126,8 +133,7 @@ class BlocklyProg extends Component {
                     </div>
 
                     <div className="commands">
-                        <CommandPanel rows={2} cols={15} program={this.state.program} lastClicked={this.lastClicked} />
-
+                        <button onClick={this.save}>Save</button>
                     </div>
 
                 </div>

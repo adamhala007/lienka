@@ -63,3 +63,19 @@ app.post('/login',  async (req,res) => {
 
     res.status(200).json(result);
 });
+
+app.post('/saveBlocklyProgram',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+    let programName = all.programName;
+    let program = all.program;
+
+    firebase.writeBlocklyProgram(user, programName, program);
+    result = {
+        errorCode: "0",
+        errorMessage: "OK"
+    };
+
+
+    res.status(200).json(result);
+});

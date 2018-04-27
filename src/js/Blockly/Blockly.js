@@ -4,7 +4,6 @@ import BlocklyDrawer, { Block, Category } from 'react-blockly-drawer';
 
 export const up =  {
     name: 'forward',
-    category: 'Movement',
     block: {
         init: function () {
             this.jsonInit({
@@ -26,14 +25,13 @@ export const up =  {
     },
     generator: (block) => {
         const message = `'${block.getFieldValue('up')}'` || '\'\'';
-        const code = `console.log('Hello ${message}')`;
+        const code = `forward(${message})`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
     },
 };
 
 export const down =  {
     name: 'backward',
-    category: 'Movement',
     colour: 160,
     block: {
         init: function () {
@@ -56,18 +54,17 @@ export const down =  {
     },
     generator: (block) => {
         const message = `'${block.getFieldValue('down')}'` || '\'\'';
-        const code = `console.log('Hello ${message}')`;
+        const code = `backward(${message})`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
     },
 };
 
 export const left =  {
     name: 'left',
-    category: 'Movement',
     block: {
         init: function () {
             this.jsonInit({
-                message0: 'turn left %1 degrees',
+                message0: 'turn left %1°',
                 args0: [
                     {
                         type: 'input_value',
@@ -85,7 +82,7 @@ export const left =  {
     },
     generator: (block) => {
         const message = `'${block.getFieldValue('left')}'` || '\'\'';
-        const code = `console.log('Hello ${message}')`;
+        const code = `left(${message})`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
     },
 };
@@ -96,7 +93,7 @@ export const right =  {
     block: {
         init: function () {
             this.jsonInit({
-                message0: 'turn right %1 degrees',
+                message0: 'turn right %1°',
                 args0: [
                     {
                         type: 'input_value',
@@ -105,6 +102,7 @@ export const right =  {
                     },
 
                 ],
+
                 previousStatement: null,
                 nextStatement: null,
                 colour: 160,
@@ -114,7 +112,7 @@ export const right =  {
     },
     generator: (block) => {
         const message = `'${block.getFieldValue('right')}'` || '\'\'';
-        const code = `console.log('Hello ${message}')`;
+        const code = `right(${message})`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
     },
 };
@@ -126,6 +124,7 @@ export const sound =  {
         init: function () {
             this.jsonInit({
                 message0: 'play sound',
+                args0: null,
                 previousStatement: null,
                 nextStatement: null,
                 colour: 160,
@@ -134,8 +133,7 @@ export const sound =  {
         },
     },
     generator: (block) => {
-        const message = `'${block.getFieldValue('right')}'` || '\'\'';
-        const code = `console.log('Hello ${message}')`;
+        const code = `sound()`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
     },
 };
@@ -155,8 +153,7 @@ export const light =  {
         },
     },
     generator: (block) => {
-        const message = `'${block.getFieldValue('right')}'` || '\'\'';
-        const code = `console.log('Hello ${message}')`;
+        const code = `light()`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
     },
 };

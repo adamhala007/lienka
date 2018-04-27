@@ -37,6 +37,17 @@ module.exports = {
 
         });
         return res;
+    },
+
+    writeBlocklyProgram: async (user, programName, program) => {
+
+
+        db.ref('prog_blockly/' + user).child(programName).set({
+            program: program,
+        });
+
     }
+
+
 
 };

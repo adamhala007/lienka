@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import div from 'react-dom';
 import '../css/App.css';
 import Button from './Button'
-//import TextField from './TextField'
 import "../css/EntryForm.css";
 import axios from 'axios';
-//import TextField from 'material-ui/TextField';
-//import { TextField, validator } from 'react-textfield';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import { Link, withRouter} from 'react-router-dom'
