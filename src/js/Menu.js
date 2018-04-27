@@ -57,6 +57,11 @@ export default class Menu extends React.Component {
 
     handleChange = (event, index, value) => this.setState({value});
 
+    logout=()=>{
+        localStorage.removeItem("user");
+        this.props.history.push('/');
+    }
+
     render() {
         return (
             <Toolbar
@@ -72,8 +77,8 @@ export default class Menu extends React.Component {
 
                 <ToolbarGroup style={menuStyle}>
 
-                    <Avatar size={35} style={style}>a</Avatar>
-                    <ToolbarTitle text="adamhala007" />
+                    <Avatar size={35} style={style}>{localStorage.getItem("user") !== null && localStorage.getItem("user").charAt(0)}</Avatar>
+                    <ToolbarTitle text={localStorage.getItem("user")} />
                     <IconMenu style={menuItemStyle}
                         iconButtonElement={
                             <IconButton touch={true}>
@@ -86,7 +91,7 @@ export default class Menu extends React.Component {
                     </IconMenu>
                     <ToolbarSeparator />
                     <IconButton iconClassName="connect"  style={iconStyles} />
-                    <IconButton iconClassName="logout"  />
+                    <IconButton iconClassName="logout"  onClick={this.logout}/>
 
 
                 </ToolbarGroup>

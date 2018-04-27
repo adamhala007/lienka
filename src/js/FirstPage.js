@@ -8,7 +8,11 @@ import Article from "./Article";
 /*https://www.robinwieruch.de/complete-firebase-authentication-react-tutorial/#react-firebase-setup*/
 
 class FirstPage extends Component {
+
     render() {
+        if(localStorage.getItem("user") !== "" && localStorage.getItem("user") !== null){
+            this.props.history.push('/home');
+        }
         return (
             <div className="FirstPage">
                 <header className="FirstPage-header" />

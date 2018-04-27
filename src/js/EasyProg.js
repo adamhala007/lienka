@@ -52,6 +52,9 @@ class EasyProg extends Component {
     }
 
     render (){
+        if(localStorage.getItem("user") === null){
+            this.props.history.push('/');
+        }
         return(
             <div className={"Home"}>
                 <Menu/>

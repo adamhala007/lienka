@@ -72,7 +72,12 @@ class EntryForm extends Component {
                 .then(res => {
                     this.errorHandle(res.data.errorCode, res.data.errorMessage);
                     if(this.state.successfulLogin){
+                        console.log(this.state.registration)
+                        localStorage.setItem("user", this.state.registration.username);
+                        this.emptyFields();
                         this.props.history.push('/home');
+                    }else{
+                        console.log(res.data);
                     }
                     //console.log("RES: " + res.data.errorMessage);
                     //console.log("RES DATA: " +res.data.email);
@@ -96,6 +101,8 @@ class EntryForm extends Component {
                 .then(res => {
                     this.errorHandle(res.data.errorCode, res.data.errorMessage);
                     if(this.state.successfulRegistration){
+                        localStorage.setItem("user", this.state.registration.username);
+                        this.emptyFields();
                         this.props.history.push('/home');
                     }
                     console.log("RES: " + res.data.errorMessage);
@@ -110,23 +117,27 @@ class EntryForm extends Component {
 
     };
 
-    errorHandle = (code, msg) =>{
+    emptyFields=()=>{
         const {registration} = this.state;
         const {error} = this.state;
 
+        registration['username'] = "";
+        registration['password'] = "";
+        registration['password2'] = "";
+        registration['email'] = "";
+        registration['salt'] = "";
+
+        error['username'] = "";
+        error['password'] = "";
+        error['email'] = "";
+        error['password2'] = "";
+        this.setState({registration, error});
+    }
+
+    errorHandle = (code, msg) =>{
+
+
         if(code === "0"){
-            registration['username'] = "";
-            registration['password'] = "";
-            registration['password2'] = "";
-            registration['email'] = "";
-            registration['salt'] = "";
-
-            error['username'] = "";
-            error['password'] = "";
-            error['email'] = "";
-            error['password2'] = "";
-            this.setState({registration, error});
-
             this.setState({
                 successfulRegistration: true,
                 successfulLogin: true,

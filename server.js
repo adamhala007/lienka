@@ -40,7 +40,7 @@ app.post('/register',  async (req,res) => {
 app.post('/login',  async (req,res) => {
     const all = req.body;
 
-    if (await !firebase.existsUser(all.username)){
+    if (!(await firebase.existsUser(all.username))){
         result = {
             errorCode: "2",
             errorMessage: "userNotExists"

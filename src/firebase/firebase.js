@@ -35,7 +35,9 @@ module.exports = {
         await db.ref('users/' + username).once("value", function(snapshot) {
             res = (snapshot.val() !== null);
 
+
         });
+
         return res;
     },
 
