@@ -17,6 +17,19 @@ class ControlPanel extends Component{
     render(){
         return(
             <div className="controlPanel-content">
+                <div className="controlPanel-lowerControls">
+                    <div className="flex-grid">
+                        <div className="col">
+                            <div id="controlPanel-save" onClick={this.save} />
+                        </div>
+                        <div className="col">
+                            <div id="controlPanel-blank" />
+                        </div>
+                        <div className="col">
+                            <div id="controlPanel-open" onClick={this.open} />
+                        </div>
+                    </div>
+                </div>
                 <div className="controlPanel-upperControls">
                     <div className="flex-grid">
                         <div className="col">
@@ -38,6 +51,8 @@ class ControlPanel extends Component{
 
 
                 </div>
+
+
             </div>
         );
     }

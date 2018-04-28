@@ -79,3 +79,37 @@ app.post('/saveBlocklyProgram',  async (req,res) => {
 
     res.status(200).json(result);
 });
+
+app.post('/loadBlocklyProgram',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+
+    let result = ( await firebase.readBlocklyProgram(user));
+
+    res.status(200).json(result);
+});
+
+app.post('/logInOut',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+    let timeStamp = all.timeStamp;
+    let log_in_out = all.log_in_out;
+
+    firebase.writeLog(user, timeStamp, log_in_out);
+    result = {
+        errorCode: "0",
+        errorMessage: "OK"
+    };
+
+
+    res.status(200).json(result);
+});
+
+app.post('/getLogs',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+
+    let result = await firebase.getLogs(user);
+
+    res.status(200).json(result);
+});

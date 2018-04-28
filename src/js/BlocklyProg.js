@@ -11,7 +11,7 @@ import Blockly from 'node-blockly/browser';
 import Workspace from 'node-blockly/browser';
 
 import BlocklyDrawer, { Block, Category } from 'react-blockly-drawer';
-import {saveBlocklyProgram} from '../firebase/client'
+import {saveBlocklyProgram, loadBlocklyProgram} from '../firebase/client'
 import axios from 'axios';
 
 const color1 = "#FF4900"; // title
@@ -60,9 +60,18 @@ class BlocklyProg extends Component {
         this.simulator.current.timer();
     }
 
-    load = (xml_text) => {
-        let xml = Blockly.Xml.textToDom(xml_text);
+    load = async() => {
+        let loadedValue = await loadBlocklyProgram(localStorage.getItem("user"));
+        console.log("LoadedValue: ");
+        console.log(loadedValue);
+        let arr = [];
+        Object.keys(loadedValue).forEach(function(key) {
+            arr.push(key);
+        });
+        console.log(arr);
+        let xml = Blockly.Xml.textToDom(loadedValue['test']);
         Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
+
     };
 
 
@@ -76,7 +85,7 @@ class BlocklyProg extends Component {
         if (programName === null || programName === "") {
 
         } else {
-            saveBlocklyProgram("adamhala007", programName, xml_text);
+            saveBlocklyProgram(localStorage.getItem("user"), programName, xml_text);
         }
 
         console.log(xml_text);
@@ -88,7 +97,7 @@ class BlocklyProg extends Component {
         }
         return(
             <div className={"Home"}>
-                <Menu/>
+                <Menu history={this.props.history}/>
                 <div className={"content"}>
                     <BlocklyDrawer
                         tools={[up, down, left, right, sound, light]}
@@ -137,6 +146,7 @@ class BlocklyProg extends Component {
 
                     <div className="commands">
                         <button onClick={this.save}>Save</button>
+                        <button onClick={this.load}>Load</button>
                     </div>
 
                 </div>

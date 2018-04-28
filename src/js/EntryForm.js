@@ -7,6 +7,7 @@ import axios from 'axios';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import { Link, withRouter} from 'react-router-dom'
+import {logIn} from '../firebase/client'
 
 
 let randomstring = require("randomstring");
@@ -74,6 +75,7 @@ class EntryForm extends Component {
                     if(this.state.successfulLogin){
                         console.log(this.state.registration)
                         localStorage.setItem("user", this.state.registration.username);
+                        logIn(this.state.registration.username)
                         this.emptyFields();
                         this.props.history.push('/home');
                     }else{
@@ -102,6 +104,7 @@ class EntryForm extends Component {
                     this.errorHandle(res.data.errorCode, res.data.errorMessage);
                     if(this.state.successfulRegistration){
                         localStorage.setItem("user", this.state.registration.username);
+                        logIn(this.state.registration.username);
                         this.emptyFields();
                         this.props.history.push('/home');
                     }

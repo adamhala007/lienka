@@ -57,7 +57,7 @@ class EasyProg extends Component {
         }
         return(
             <div className={"Home"}>
-                <Menu/>
+                <Menu history={this.props.history}/>
                 <div className={"content"}>
 
                     <div className="controls">

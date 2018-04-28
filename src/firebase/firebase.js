@@ -16,7 +16,8 @@ module.exports = {
             name: username,
             email: email,
             password: passwd,
-            salt : salt
+            salt : salt,
+            admin: false
         });
     },
 
@@ -41,13 +42,43 @@ module.exports = {
         return res;
     },
 
-    writeBlocklyProgram: async (user, programName, program) => {
-
-
-        db.ref('prog_blockly/' + user).child(programName).set({
+    writeBlocklyProgram: (username, programName, program) => {
+        db.ref('prog_blockly/' + username).child(programName).set({
             program: program,
+
+        });
+    },
+
+    readBlocklyProgram: async (user) => {
+        let res;
+
+        await db.ref('prog_blockly/' + user).once("value", function(snapshot) {
+            res = snapshot.val();
+
+            console.log(res)
+
         });
 
+        return res;
+
+    },
+
+    writeLog: async (user, timeStamp, logInOut) => {
+        db.ref('logs/' + user).child(timeStamp).set({
+            logInOut: logInOut,
+
+        });
+    },
+
+    getLogs: async(user) => {
+        let result;
+        await db.ref('logs/' + user).once("value", function(snapshot) {
+            result= snapshot.val();
+
+
+        });
+        //console.log(result);
+        return result;
     }
 
 

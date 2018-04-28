@@ -4,6 +4,7 @@ import FirstPage from "./FirstPage";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import Home from "./Home";
+import Statistics from "./Statistics";
 import EasyProg from "./EasyProg";
 import BlocklyProg from "./BlocklyProg";
 
@@ -30,6 +31,7 @@ class App extends Component {
                 <Switch>
                     <Route exact path="/" history={this.props.history} component={FirstPage}/>
                     <Route exact path="/home" history={this.props.history} component={Home}/>
+                    <Route exact path="/statistics" history={this.props.history} component={Statistics}/>
 
 
                     <Route exact path="/easyprog" history={this.props.history} component={EasyProg}/>

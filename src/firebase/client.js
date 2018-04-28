@@ -18,4 +18,74 @@ export const saveBlocklyProgram = (user, programName, program) =>{
 
 }
 
+export const loadBlocklyProgram = async (user) =>{
+    let data = {
+        user: user,
+    };
+    let result;
+    await axios.post('/loadBlocklyProgram', data )
+        .then(res => {
+
+
+            result = res.data;
+            //console.log("RES DATA: " +res.data.email);
+
+
+        });
+    /*console.log("LOAD: ");
+    console.log( result);*/
+    return result;
+};
+
+export const logIn = async(user) => {
+    const now = Date.now();
+    let data = {
+        user: user,
+        timeStamp: now,
+        log_in_out: true,
+    };
+
+    axios.post('/logInOut', data )
+        .then(res => {
+            console.log("RES: " + res.data);
+
+
+        })
+};
+
+export const logOut = async(user) => {
+    const now = Date.now();
+    let data = {
+        user: user,
+        timeStamp: now,
+        log_in_out: false,
+    };
+
+    axios.post('/logInOut', data )
+        .then(res => {
+            console.log("RES: " + res.data);
+
+
+        })
+};
+
+
+export const getLogs = async (user) =>{
+    let data = {
+        user: user,
+    };
+    let result;
+    await axios.post('/getLogs', data )
+        .then(res => {
+
+
+            result = res.data;
+
+
+        });
+    /*console.log("LOAD: ");
+    console.log( result);*/
+    return result;
+};
+
 
