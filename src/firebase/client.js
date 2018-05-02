@@ -89,3 +89,39 @@ export const getLogs = async (user) =>{
 };
 
 
+export const saveEasyProgram = (user, programName, program) =>{
+    let data = {
+        user: user,
+        programName: programName,
+        program: program,
+    }
+    axios.post('/saveEasyProgram', data )
+        .then(res => {
+            console.log("RES: " + res.data);
+            //console.log("RES DATA: " +res.data.email);
+
+
+        })
+
+}
+
+export const loadEasyProgram = async (user) =>{
+    let data = {
+        user: user,
+    };
+    let result;
+    await axios.post('/loadEasyProgram', data )
+        .then(res => {
+
+
+            result = res.data;
+            //console.log("RES DATA: " +res.data.email);
+
+
+        });
+    /*console.log("LOAD: ");
+    console.log( result);*/
+    return result;
+};
+
+

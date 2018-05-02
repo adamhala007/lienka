@@ -5,6 +5,10 @@ import { withRouter} from 'react-router-dom'
 import ControlPanel from "./ControlPanel";
 import SimulatorPanel from "./SimulatorPanel";
 import CommandPanel from "./CommandPanel";
+import {loadBlocklyProgram, saveBlocklyProgram} from "../firebase/client";
+import Blockly from "node-blockly/browser";
+
+import {saveEasyProgram, loadEasyProgram} from '../firebase/client';
 
 const color1 = "#FF4900"; // title
 const color2 = "#FF5A19"; // button color
@@ -51,6 +55,30 @@ class EasyProg extends Component {
         this.simulator.current.timer();
     }
 
+    save = () => {
+
+        let programName = prompt("Please enter the name of the program:" , "");
+        if (programName === null || programName === "") {
+
+        } else {
+            saveEasyProgram(localStorage.getItem("user"), programName, this.state.program);
+        }
+
+    }
+
+    load = async() => {
+        let programName = prompt("Please enter the name of the program:" , "");
+        if (programName === null || programName === "") {
+
+        } else {
+            let prog = await loadEasyProgram(localStorage.getItem("user"));
+            this.setState({
+                program: prog[programName]['program']
+            })
+        }
+
+    }
+
     render (){
         if(localStorage.getItem("user") === null){
             this.props.history.push('/');
@@ -61,7 +89,7 @@ class EasyProg extends Component {
                 <div className={"content"}>
 
                     <div className="controls">
-                        <ControlPanel addCommand={this.addCommand} delete={this.delete} simulate={this.simulate}/>
+                        <ControlPanel addCommand={this.addCommand} delete={this.delete} simulate={this.simulate} save={this.save} load={this.load}/>
                     </div>
 
                     <div className="simulator">

@@ -113,3 +113,28 @@ app.post('/getLogs',  async (req,res) => {
 
     res.status(200).json(result);
 });
+
+app.post('/saveEasyProgram',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+    let programName = all.programName;
+    let program = all.program;
+
+    firebase.writeEasyProgram(user, programName, program);
+    result = {
+        errorCode: "0",
+        errorMessage: "OK"
+    };
+
+
+    res.status(200).json(result);
+});
+
+app.post('/loadEasyProgram',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+
+    let result = ( await firebase.readEasyProgram(user));
+
+    res.status(200).json(result);
+});

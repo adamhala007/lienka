@@ -20,13 +20,13 @@ class ControlPanel extends Component{
                 <div className="controlPanel-lowerControls">
                     <div className="flex-grid">
                         <div className="col">
-                            <div id="controlPanel-save" onClick={this.save} />
+                            <div id="controlPanel-save" onClick={this.props.save} />
                         </div>
                         <div className="col">
                             <div id="controlPanel-blank" />
                         </div>
                         <div className="col">
-                            <div id="controlPanel-open" onClick={this.open} />
+                            <div id="controlPanel-open" onClick={this.props.load} />
                         </div>
                     </div>
                 </div>

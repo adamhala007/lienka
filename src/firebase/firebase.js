@@ -79,7 +79,28 @@ module.exports = {
         });
         //console.log(result);
         return result;
-    }
+    },
+
+    writeEasyProgram: (username, programName, program) => {
+        db.ref('prog_easy/' + username).child(programName).set({
+            program: program,
+
+        });
+    },
+
+    readEasyProgram: async (user) => {
+        let res;
+
+        await db.ref('prog_easy/' + user).once("value", function(snapshot) {
+            res = snapshot.val();
+
+            console.log(res)
+
+        });
+
+        return res;
+
+    },
 
 
 

@@ -11,7 +11,7 @@ import Blockly from 'node-blockly/browser';
 import Workspace from 'node-blockly/browser';
 
 import BlocklyDrawer, { Block, Category } from 'react-blockly-drawer';
-import {saveBlocklyProgram, loadBlocklyProgram} from '../firebase/client'
+import {saveBlocklyProgram, loadBlocklyProgram} from '../firebase/client';
 import axios from 'axios';
 
 const color1 = "#FF4900"; // title
@@ -61,16 +61,25 @@ class BlocklyProg extends Component {
     }
 
     load = async() => {
-        let loadedValue = await loadBlocklyProgram(localStorage.getItem("user"));
-        console.log("LoadedValue: ");
-        console.log(loadedValue);
-        let arr = [];
+
+        let programName = prompt("Please enter the name of the program:" , "");
+        if (programName === null || programName === "") {
+
+        } else {
+            let loadedValue = await loadBlocklyProgram(localStorage.getItem("user"));
+            let xml = Blockly.Xml.textToDom(loadedValue[programName]['program']);
+
+            Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
+        }
+        //console.log(loadedValue['aa']['program']);
+        //console.log("LoadedValue: ");
+        //console.log(loadedValue);
+        /*let arr = [];
         Object.keys(loadedValue).forEach(function(key) {
             arr.push(key);
-        });
-        console.log(arr);
-        let xml = Blockly.Xml.textToDom(loadedValue['test']);
-        Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
+        });*/
+        //console.log(arr);
+
 
     };
 
