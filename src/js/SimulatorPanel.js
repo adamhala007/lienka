@@ -58,36 +58,47 @@ class SimulatorPanel extends Component{
         return true;
     }
 
+    mod = (n,m) => {
+        return ((n % m) + m) % m;
+    }
+
     simulate = () =>{
-        if (this.state.index === this.props.program.length){
+        if (this.state.index === this.props.program.length ){
             clearInterval(this.state.intervalId);
-            this.state.index=0;
+            this.setState({
+                index : 0
+            })
         }else{
             if(this.props.program[this.state.index] === "up" && this.canMove("up")){
-                console.log("X: " + this.state.ladyBugX + " " + this.state.degree + " -" + Math.cos(this.state.degree));
-                console.log("Y: " + this.state.ladyBugY + " " + this.state.degree + " +" + Math.sin(this.state.degree));
+                console.log("up X: " + this.state.ladyBugX + " " + this.state.degree + " " + Math.cos(this.state.degree*180/Math.PI));
+                console.log("up Y: " + this.state.ladyBugY + " " + this.state.degree + " " + Math.sin(this.state.degree*180/Math.PI));
                 this.setState({
-                    ladyBugX: this.state.ladyBugX - Math.cos(this.state.degree*Math.PI/180),
-                    ladyBugY: this.state.ladyBugY + Math.sin(this.state.degree*Math.PI/180),
+                    ladyBugX: this.state.ladyBugX - Math.floor(Math.cos(this.state.degree*Math.PI/180)),
+                    ladyBugY: this.state.ladyBugY + Math.floor(Math.sin(this.state.degree*Math.PI/180)),
                     index : this.state.index + 1,
                 })
 
             }else if(this.props.program[this.state.index] === "down" && this.canMove("down")){
+                console.log("down X: " + this.state.ladyBugX + " " + this.state.degree + " " + Math.cos(this.state.degree*Math.PI/180));
+                console.log("down Y: " + this.state.ladyBugY + " " + this.state.degree + " " + Math.sin(this.state.degree*Math.PI/180));
                 this.setState({
-                    ladyBugX: this.state.ladyBugX + Math.cos(this.state.degree*Math.PI/180),
-                    ladyBugY: this.state.ladyBugY - Math.sin(this.state.degree*Math.PI/180),
+                    ladyBugX: this.state.ladyBugX + Math.floor(Math.cos(this.state.degree*Math.PI/180)),
+                    ladyBugY: this.state.ladyBugY - Math.floor(Math.sin(this.state.degree*Math.PI/180)),
                     index : this.state.index + 1,
                 })
             }else if(this.props.program[this.state.index] === "left"){
+
                 this.setState({
-                    degree: (this.state.degree - 90) % 360,
+                    degree: this.mod(this.state.degree-90,360),
                     index : this.state.index + 1,
                 })
+                console.log("turn left: " + this.state.degree );
             }else if(this.props.program[this.state.index] === "right"){
                 this.setState({
-                    degree: (this.state.degree + 90) % 360,
+                    degree: this.mod(this.state.degree+90,360),
                     index : this.state.index + 1,
                 })
+                console.log("turn right: " + this.state.degree );
             }else if(this.props.program[this.state.index] === "light"){
                 alert("Light");
                 console.log("Light");
