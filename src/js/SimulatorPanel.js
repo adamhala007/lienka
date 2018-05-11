@@ -32,11 +32,38 @@ class SimulatorPanel extends Component{
         this.setState({intervalId: intervalId});
     }
 
+    canMove = (dir) => {
+        console.log("DEG: ", this.state.degree, this.state.ladyBugX, this.state.ladyBugY)
+        if(this.state.degree===0 ){
+
+            if(dir==="up" && this.state.ladyBugX === 0) return false;
+            if(dir==="down" && this.state.ladyBugX === this.state.rows-1) return false;
+
+        }else if(this.state.degree===90){
+
+            if(dir==="up" && this.state.ladyBugY === this.state.cols-1) return false;
+            if(dir==="down" && this.state.ladyBugY === 0) return false;
+
+        }else if(this.state.degree===180){
+
+            if(dir==="up" && this.state.ladyBugX === this.state.rows-1) return false;
+            if(dir==="down" && this.state.ladyBugX === 0) return false;
+
+        }else if(this.state.degree===270){
+
+            if(dir==="up" && this.state.ladyBugY === 0) return false;
+            if(dir==="down" && this.state.ladyBugY === this.state.cols-1) return false;
+
+        }
+        return true;
+    }
+
     simulate = () =>{
         if (this.state.index === this.props.program.length){
             clearInterval(this.state.intervalId);
+            this.state.index=0;
         }else{
-            if(this.props.program[this.state.index] === "up" ){
+            if(this.props.program[this.state.index] === "up" && this.canMove("up")){
                 console.log("X: " + this.state.ladyBugX + " " + this.state.degree + " -" + Math.cos(this.state.degree));
                 console.log("Y: " + this.state.ladyBugY + " " + this.state.degree + " +" + Math.sin(this.state.degree));
                 this.setState({
@@ -45,7 +72,7 @@ class SimulatorPanel extends Component{
                     index : this.state.index + 1,
                 })
 
-            }else if(this.props.program[this.state.index] === "down"){
+            }else if(this.props.program[this.state.index] === "down" && this.canMove("down")){
                 this.setState({
                     ladyBugX: this.state.ladyBugX + Math.cos(this.state.degree*Math.PI/180),
                     ladyBugY: this.state.ladyBugY - Math.sin(this.state.degree*Math.PI/180),
@@ -70,6 +97,10 @@ class SimulatorPanel extends Component{
             }else if(this.props.program[this.state.index] === "sound"){
                 alert("Sound");
                 console.log("Sound");
+                this.setState({
+                    index : this.state.index + 1,
+                })
+            }else{
                 this.setState({
                     index : this.state.index + 1,
                 })
@@ -112,10 +143,10 @@ class SimulatorPanel extends Component{
         return(
             <div className="simulatorPanel-content"  >
 
-                    <div className="flex-grid" ref={input => {this.myInput = input;}}>
-                        {this.state.squares}
+                <div className="flex-grid" ref={input => {this.myInput = input;}}>
+                    {this.state.squares}
 
-                    </div>
+                </div>
 
 
             </div>
