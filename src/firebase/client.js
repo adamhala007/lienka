@@ -69,6 +69,20 @@ export const logOut = async(user) => {
         })
 };
 
+export const deleteLog = async(user, id) => {
+    let data = {
+        timestamp: id,
+        user: user,
+    };
+
+    axios.post('/deleteLog', data )
+        .then(res => {
+            console.log("RES: " + res.data);
+
+
+        })
+};
+
 
 export const getLogs = async (user) =>{
     let data = {
@@ -76,6 +90,24 @@ export const getLogs = async (user) =>{
     };
     let result;
     await axios.post('/getLogs', data )
+        .then(res => {
+
+
+            result = res.data;
+
+
+        });
+    /*console.log("LOAD: ");
+    console.log( result);*/
+    return result;
+};
+
+export const isAdmin = async (user) =>{
+    let data = {
+        user: user,
+    };
+    let result;
+    await axios.post('/isAdmin', data )
         .then(res => {
 
 

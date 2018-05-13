@@ -8,7 +8,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import Avatar from 'material-ui/Avatar';
-import {logOut} from '../firebase/client';
+import {logOut, isAdmin} from '../firebase/client';
 
 import {
     blue300,
@@ -53,6 +53,7 @@ export default class Menu extends React.Component {
         super(props);
         this.state = {
             value: 3,
+            stats:false,
         };
     }
 
@@ -73,7 +74,12 @@ export default class Menu extends React.Component {
         localStorage.removeItem("user");
     }
 
+    componentWillMount(){
+        isAdmin(localStorage.getItem("user")).then(value => this.setState({stats: value}))
+    }
+
     render() {
+        console.log("isAdmin", isAdmin(localStorage.getItem("user")).then(value => console.log(value)));
         return (
             <Toolbar
                 style={menuStyle}>
@@ -98,7 +104,7 @@ export default class Menu extends React.Component {
                         }
                     >
                         <MenuItem primaryText="Hlavná stránka" style={menuItemStyle} onClick={this.homepage} />
-                        <MenuItem primaryText="Štatistiky" style={menuItemStyle} onClick={this.statistics} />
+                        {this.state.stats && <MenuItem primaryText="Štatistiky" style={menuItemStyle} onClick={this.statistics} />}
                         <MenuItem primaryText="Credits" style={menuItemStyle}/>
                     </IconMenu>
                     <ToolbarSeparator />

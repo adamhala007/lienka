@@ -42,6 +42,17 @@ module.exports = {
         return res;
     },
 
+    isAdmin: async (username) => {
+        let res;
+        await db.ref('users/' + username).once("value", function(snapshot) {
+            res = (snapshot.val().admin === true);
+
+
+        });
+
+        return res;
+    },
+
     writeBlocklyProgram: (username, programName, program) => {
         db.ref('prog_blockly/' + username).child(programName).set({
             program: program,
@@ -66,8 +77,12 @@ module.exports = {
     writeLog: async (user, timeStamp, logInOut) => {
         db.ref('logs/' + user).child(timeStamp).set({
             logInOut: logInOut,
-
+            id: timeStamp,
         });
+    },
+
+    deleteLog: async (user, timeStamp) => {
+        db.ref('logs/' + user).child(timeStamp).remove();
     },
 
     getLogs: async(user) => {

@@ -105,11 +105,35 @@ app.post('/logInOut',  async (req,res) => {
     res.status(200).json(result);
 });
 
+app.post('/deleteLog',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+    let timeStamp = all.timestamp;
+
+    await firebase.deleteLog(user, timeStamp);
+    result = {
+        errorCode: "0",
+        errorMessage: "OK"
+    };
+
+
+    res.status(200).json(result);
+});
+
 app.post('/getLogs',  async (req,res) => {
     const all = req.body;
     let user = all.user;
 
     let result = await firebase.getLogs(user);
+
+    res.status(200).json(result);
+});
+
+app.post('/isAdmin',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+
+    let result = await firebase.isAdmin(user);
 
     res.status(200).json(result);
 });
