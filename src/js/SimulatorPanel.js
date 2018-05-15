@@ -202,16 +202,16 @@ class SimulatorPanel extends Component{
 
                 if( val1 && val2){
                     if(this.state.degree === 0)
-                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug"}/>);
+                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug"} lastClicked={(i)=>{}} /> );
                     else if(this.state.degree === 90)
-                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug90"}/>);
+                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug90"} lastClicked={(i)=>{}}/>);
                     else if(this.state.degree === 180)
-                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug180"}/>);
+                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug180"} lastClicked={(i)=>{}}/>);
                     else if(this.state.degree === 270)
-                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug270"}/>);
+                        this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={"ladyBug270"} lastClicked={(i)=>{}}/>);
                 }else{
 
-                    this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={""}/>)
+                    this.state.squares.push(<Square key={i*100+j} i={i} j={j} width={(w/this.state.cols)-2} height={(h/this.state.rows)-2} image={""} lastClicked={(i)=>{}}/>)
                 }
 
             }

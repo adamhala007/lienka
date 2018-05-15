@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Menu from "./Menu";
-import '../css/EasyProg.css';
+import '../css/BlocklyProg.css';
 import { withRouter} from 'react-router-dom'
 import ControlPanel from "./ControlPanel";
 import SimulatorPanel from "./SimulatorPanel";
@@ -220,56 +220,63 @@ class BlocklyProg extends Component {
             <div className={"Home"}>
                 <Menu history={this.props.history}/>
                 <div className={"content"}>
-                    <BlocklyDrawer
-                        tools={[up, down, left, right, sound, light]}
-                        onChange={(code, workspace) => {
-                            //console.log(code, workspace);
-                        }}
-                    >
+                    <div className={"blocklyDrawer"}>
+                        <BlocklyDrawer
+                            tools={[up, down, left, right, sound, light]}
+                            onChange={(code, workspace) => {
+                                //console.log(code, workspace);
+                            }}
+                        >
 
-                        <Category name="Movement" colour="200" >
-                            <Block type="forward" tools={[up]}/>
-                            <Block type="backward"/>
-                            <Block type="left" />
-                            <Block type="right" />
-                        </Category>
+                            <Category name="Movement" colour="200" >
+                                <Block type="forward" tools={[up]}/>
+                                <Block type="backward"/>
+                                <Block type="left" />
+                                <Block type="right" />
+                            </Category>
 
-                        <Category name="Cycles" colour="200">
-                            <Block type="controls_if" />
-                            <Block type="controls_whileUntil"/>
-                            <Block type="controls_repeat" />
-                            <Block type="controls_for" />
-                        </Category>
+                            <Category name="Cycles" colour="200">
+                                <Block type="controls_if" />
+                                <Block type="controls_whileUntil"/>
+                                <Block type="controls_repeat" />
+                                <Block type="controls_for" />
+                            </Category>
 
-                        <Category name="Operators" colour="240">
-                            <Block type="logic_compare" />
-                            <Block type="logic_operation" />
-                            <Block type="logic_boolean" />
+                            <Category name="Operators" colour="240">
+                                <Block type="logic_compare" />
+                                <Block type="logic_operation" />
+                                <Block type="logic_boolean" />
 
-                            <Block type="math_arithmetic"/>
-                        </Category>
+                                <Block type="math_arithmetic"/>
+                            </Category>
 
-                        <Category name="Variables" custom="VARIABLE" />
-                        <Category name="Values">
-                            <Block type="math_number" />
-                            <Block type="text" />
-                            <Block type="move_forward"/>
-                            <Block type="move_backward"/>
+                            <Category name="Variables" custom="VARIABLE" />
+                            <Category name="Values">
+                                <Block type="math_number" />
+                                <Block type="text" />
+                                <Block type="move_forward"/>
+                                <Block type="move_backward"/>
 
-                        </Category>
-                    </BlocklyDrawer>
-
-
-
-                    <div className="simulator">
-                        <SimulatorPanel rows={8} cols={8} program={this.state.program} ref={this.simulator}/>
+                            </Category>
+                        </BlocklyDrawer>
                     </div>
 
-                    <div className="commands">
-                        <button onClick={this.save}>Save</button>
-                        <button onClick={this.load}>Load</button>
-                        <button id="bSimulate" onClick={this.simulate}>Run</button>
+
+                    <div className={"controlPanel"}>
+                        <div className="controls2">
+                            <div id={"controlPanel-save"} onClick={this.save}></div>
+                            <div id={"controlPanel-open"} onClick={this.load}></div>
+                            <div id="bSimulate" onClick={this.simulate}></div>
+                        </div>
+
+                        <div className="simulator2">
+                            <SimulatorPanel rows={8} cols={8} program={this.state.program} ref={this.simulator}/>
+                        </div>
                     </div>
+
+
+
+
 
                 </div>
                 <footer>

@@ -32,7 +32,7 @@ class Square extends Component {
         return(
             <div>
                 {this.props.image === "" && <div style={this.state.squareStyle} onClick={this.lastClicked} />}
-                {this.props.image !== "" && <div className={this.props.image} onClick={this.lastClicked} />}
+                {this.props.image !== "" && <div className={this.props.image}  onClick={this.lastClicked} />}
             </div>
 
         )
