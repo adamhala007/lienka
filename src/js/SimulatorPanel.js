@@ -15,7 +15,7 @@ class SimulatorPanel extends Component{
             ladyBugX: 4,
             ladyBugY: 4,
             index:0,
-            intervalID: undefined,
+            intervalID: null,
         }
 
     }
@@ -27,9 +27,15 @@ class SimulatorPanel extends Component{
 
     timer = () => {
 
-        var intervalId = setInterval(this.simulate, 1000);
+        if (this.state.intervalID===null){
+
+            let intervalId = setInterval(this.simulate, 1000);
+            //this.state.intervalID = intervalId;
+            this.setState({intervalId: intervalId});
+        }
+        //let intervalId = setInterval(this.simulate, 1000);
         // store intervalId in the state so it can be accessed later:
-        this.setState({intervalId: intervalId});
+        //this.setState({intervalId: intervalId});
     }
 
     canMove = (dir) => {
@@ -66,26 +72,84 @@ class SimulatorPanel extends Component{
         if (this.state.index === this.props.program.length ){
             clearInterval(this.state.intervalId);
             this.setState({
-                index : 0
+                index: 0,
+                intervalID: null,
             })
+            try {
+                document.getElementById("bSimulate").disabled = false;
+            }catch (err){
+            }
         }else{
             if(this.props.program[this.state.index] === "up" && this.canMove("up")){
-                console.log("up X: " + this.state.ladyBugX + " " + this.state.degree + " " + Math.cos(this.state.degree*180/Math.PI));
-                console.log("up Y: " + this.state.ladyBugY + " " + this.state.degree + " " + Math.sin(this.state.degree*180/Math.PI));
-                this.setState({
-                    ladyBugX: this.state.ladyBugX - Math.floor(Math.cos(this.state.degree*Math.PI/180)),
-                    ladyBugY: this.state.ladyBugY + Math.floor(Math.sin(this.state.degree*Math.PI/180)),
-                    index : this.state.index + 1,
-                })
+
+                switch (this.state.degree){
+                    case 0:
+                        this.setState({
+                            ladyBugX: this.state.ladyBugX - 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+                    case 180:
+                        this.setState({
+                            ladyBugX: this.state.ladyBugX + 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+                    case 90:
+                        this.setState({
+                            ladyBugY: this.state.ladyBugY + 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+                    case 270:
+                        this.setState({
+                            ladyBugY: this.state.ladyBugY - 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+
+                    default:
+                        this.setState({
+                            index : this.state.index + 1,
+                        })
+                        break;
+                }
+
+
 
             }else if(this.props.program[this.state.index] === "down" && this.canMove("down")){
-                console.log("down X: " + this.state.ladyBugX + " " + this.state.degree + " " + Math.cos(this.state.degree*Math.PI/180));
-                console.log("down Y: " + this.state.ladyBugY + " " + this.state.degree + " " + Math.sin(this.state.degree*Math.PI/180));
-                this.setState({
-                    ladyBugX: this.state.ladyBugX + Math.floor(Math.cos(this.state.degree*Math.PI/180)),
-                    ladyBugY: this.state.ladyBugY - Math.floor(Math.sin(this.state.degree*Math.PI/180)),
-                    index : this.state.index + 1,
-                })
+                switch (this.state.degree){
+                    case 0:
+                        this.setState({
+                            ladyBugX: this.state.ladyBugX + 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+                    case 180:
+                        this.setState({
+                            ladyBugX: this.state.ladyBugX - 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+                    case 90:
+                        this.setState({
+                            ladyBugY: this.state.ladyBugY - 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+                    case 270:
+                        this.setState({
+                            ladyBugY: this.state.ladyBugY + 1,
+                            index : this.state.index + 1,
+                        })
+                        break;
+                    default:
+                        this.setState({
+                            index : this.state.index + 1,
+                        })
+                        break;
+                }
+
             }else if(this.props.program[this.state.index] === "left"){
 
                 this.setState({
@@ -106,8 +170,10 @@ class SimulatorPanel extends Component{
                     index : this.state.index + 1,
                 })
             }else if(this.props.program[this.state.index] === "sound"){
-                alert("Sound");
+                //alert("Sound");
                 console.log("Sound");
+                let audio = new Audio(require('../sound/beep.mp3'));
+                console.log(audio.play());
                 this.setState({
                     index : this.state.index + 1,
                 })

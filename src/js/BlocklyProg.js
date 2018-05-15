@@ -57,6 +57,20 @@ class BlocklyProg extends Component {
     };
 
     simulate = () =>{
+        document.getElementById("bSimulate").disabled = true;
+        let xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+        let elements = xml.getElementsByTagName("block");
+        //console.log(elements)
+
+        while(this.state.program.length > 0) {
+            this.state.program.pop();
+        }
+        this.interpret(elements.item(0));
+
+        this.simulator.current.setState({
+            index: 0,
+            intervalId: null,
+        })
         this.simulator.current.timer();
     }
 
@@ -100,6 +114,104 @@ class BlocklyProg extends Component {
         console.log(xml_text);
     }
 
+    run=()=>{
+        let xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+        let elements = xml.getElementsByTagName("block");
+        //console.log(elements)
+
+        while(this.state.program.length > 0) {
+            this.state.program.pop();
+        }
+        this.interpret(elements.item(0));
+        //console.log(this.state.program)
+
+        /*for (let i = 0; i< elements.length; i++){
+            console.log(elements.item(i))
+            console.log(elements.item(i).childNodes)
+            //console.log(elements.item(i).childNodes.keys())
+            //console.log(xml.getElementsByTagName("block")[i])
+        }*/
+
+        //console.log(xml.getElementsByTagName("block"))
+       // console.log(xml.getElementsByTagName("block")[0])
+
+        //console.log(xml.getElementsByTagName("block")[0].getAttribute("type"))
+
+    }
+
+    interpret=(block)=>{
+        //console.log(block.getAttribute("type"))
+
+        try {
+           switch (block.getAttribute("type")){
+               case "forward":
+                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent ; i++){
+                       this.state.program.push("up");
+                   }
+                   break;
+
+               case "backward":
+                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent ; i++){
+                       this.state.program.push("down");
+                   }
+                   break;
+
+               case "left":
+                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent / 90 ; i++){
+                       this.state.program.push("left");
+                   }
+                   break;
+
+               case "right":
+                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent / 90 ; i++){
+                       this.state.program.push("right");
+                   }
+                   break;
+
+               case "light":
+                   this.state.program.push("light");
+                   break;
+
+               case "sound":
+                   this.state.program.push("sound");
+                   break;
+           }
+        }catch (err){
+            console.log("block value error");
+        }
+
+        /*if (block.getAttribute("type") === "forward"){
+            //block.childNodes['value']
+            try {
+                for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent ; i++){
+                    this.state.program.push("up");
+                }
+            }catch (err) {
+                console.log("block value error")
+            }
+        }else if (block.getAttribute("type") === "backward"){
+            //block.childNodes['value']
+            try {
+                for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent ; i++){
+                    this.state.program.push("down");
+                }
+            }catch (err) {
+                console.log("block value error")
+            }
+        }*/
+
+        try {
+            let nextBlock = block.getElementsByTagName("next").item(0).getElementsByTagName("block").item(0);
+            //console.log("nextBlock", nextBlock.item(0).getElementsByTagName("block").item(0))
+            if (nextBlock !== null){
+                this.interpret(nextBlock);
+            }
+        }catch (err){
+            console.log("there is no other next block")
+        }
+
+    }
+
     render (){
         if(localStorage.getItem("user") === null){
             this.props.history.push('/');
@@ -111,7 +223,7 @@ class BlocklyProg extends Component {
                     <BlocklyDrawer
                         tools={[up, down, left, right, sound, light]}
                         onChange={(code, workspace) => {
-                            console.log(code, workspace);
+                            //console.log(code, workspace);
                         }}
                     >
 
@@ -156,6 +268,7 @@ class BlocklyProg extends Component {
                     <div className="commands">
                         <button onClick={this.save}>Save</button>
                         <button onClick={this.load}>Load</button>
+                        <button id="bSimulate" onClick={this.simulate}>Run</button>
                     </div>
 
                 </div>
