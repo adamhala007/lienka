@@ -130,11 +130,33 @@ app.post('/deleteLog',  async (req,res) => {
     res.status(200).json(result);
 });
 
+app.post('/deleteLogAll',  async (req,res) => {
+    const all = req.body;
+    let user = all.user;
+
+    await firebase.deleteLogAll(user);
+    result = {
+        errorCode: "0",
+        errorMessage: "OK"
+    };
+
+
+    res.status(200).json(result);
+});
+
 app.post('/getLogs',  async (req,res) => {
     const all = req.body;
     let user = all.user;
 
     let result = await firebase.getLogs(user);
+
+    res.status(200).json(result);
+});
+
+app.post('/getAllUsers',  async (req,res) => {
+    const all = req.body;
+
+    let result = await firebase.getAllUsers();
 
     res.status(200).json(result);
 });

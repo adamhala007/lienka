@@ -83,6 +83,19 @@ export const deleteLog = async(user, id) => {
         })
 };
 
+export const deleteLogAll = async(user) => {
+    let data = {
+        user: user,
+    };
+
+    axios.post('/deleteLogAll', data )
+        .then(res => {
+            console.log("RES: " + res.data);
+
+
+        })
+};
+
 
 export const getLogs = async (user) =>{
     let data = {
@@ -90,6 +103,24 @@ export const getLogs = async (user) =>{
     };
     let result;
     await axios.post('/getLogs', data )
+        .then(res => {
+
+
+            result = res.data;
+
+
+        });
+    /*console.log("LOAD: ");
+    console.log( result);*/
+    return result;
+};
+
+export const getAllUsers = async () =>{
+    let data = {
+
+    };
+    let result;
+    await axios.post('/getAllUsers', data )
         .then(res => {
 
 

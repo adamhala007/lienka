@@ -82,13 +82,38 @@ module.exports = {
     },
 
     deleteLog: async (user, timeStamp) => {
-        db.ref('logs/' + user).child(timeStamp).remove();
+        try {
+            db.ref('logs/' + user).child(timeStamp).remove();
+        }catch (err){
+            console.log(err)
+        }
+
+    },
+
+    deleteLogAll: async (user) => {
+        try {
+            db.ref('logs/' + user).set({});
+        }catch (err){
+            console.log(err)
+        }
+
     },
 
     getLogs: async(user) => {
         let result;
         await db.ref('logs/' + user).once("value", function(snapshot) {
             result= snapshot.val();
+
+
+        });
+        //console.log(result);
+        return result;
+    },
+
+    getAllUsers: async() => {
+        let result;
+        await db.ref('users/').once("value", function(snapshot) {
+            result= Object.keys(snapshot.val());
 
 
         });
