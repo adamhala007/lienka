@@ -52,6 +52,7 @@ class EasyProg extends Component {
     };
 
     simulate = () =>{
+        document.getElementById("controlPanel-go").disabled = true;
         this.simulator.current.timer();
     }
 

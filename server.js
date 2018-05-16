@@ -1,9 +1,13 @@
 let express = require("express");
+let path = require("path");
 let app =  express();
 let bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+// for serving static files
+app.use(express.static(path.join(__dirname, "build")));
 
 app.use(bodyParser.json());
 let result = {};
@@ -12,6 +16,12 @@ let md5 = require('md5');
 
 app.listen(3001,() =>  console.log("Running on localhost:3001"));
 
+// listen for all GET requests and server built html, can listen for "/" also, in case you have another GET endpoints
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/build/index.html"));
+});
+
+// just a tip: it is good to prefix API urls with /api/{endpoint}
 app.post('/getlogged', async (req,res) => {
     const all = req.body;
     result = await firebase.readUserData("id");

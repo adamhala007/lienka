@@ -29,7 +29,6 @@
     "eject": "react-scripts eject"
   },
 
-  "proxy": "http://localhost:3001/",
-  "homepage" : "https://lienka.herokuapp.com/"
+  "proxy": "http://localhost:3001/"
 
 }

@@ -76,6 +76,10 @@ class SimulatorPanel extends Component{
                 intervalID: null,
             })
             try {
+                document.getElementById("controlPanel-go").disabled = false;
+            }catch (err){
+            }
+            try {
                 document.getElementById("bSimulate").disabled = false;
             }catch (err){
             }

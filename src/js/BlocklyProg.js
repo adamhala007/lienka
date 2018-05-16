@@ -266,7 +266,7 @@ class BlocklyProg extends Component {
                         <div className="controls2">
                             <div id={"controlPanel-save"} onClick={this.save}></div>
                             <div id={"controlPanel-open"} onClick={this.load}></div>
-                            <div id="bSimulate" onClick={this.simulate}></div>
+                            <button id="bSimulate" onClick={this.simulate}></button>
                         </div>
 
                         <div className="simulator2">
