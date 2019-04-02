@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {BrowserRouter, Switch, Route, withRouter } from 'react-router-dom';
 import Home from "./Home";
 import Statistics from "./Statistics";
+import PlayGround from "./PlayGround";
 import EasyProg from "./EasyProg";
 import BlocklyProg from "./BlocklyProg";
 
@@ -34,6 +35,7 @@ class App extends Component {
                     <Route exact path="/statistics" history={this.props.history} component={Statistics}/>
 
 
+                    <Route exact path="/playground" history={this.props.history} component={PlayGround}/>
                     <Route exact path="/easyprog" history={this.props.history} component={EasyProg}/>
                     <Route exact path="/blocklyprog" history={this.props.history} component={BlocklyProg}/>
 

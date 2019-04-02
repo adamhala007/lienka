@@ -72,7 +72,14 @@ export default class Menu extends React.Component {
 
         this.props.history.push('/');
         localStorage.removeItem("user");
-    }
+    };
+
+    connectionSettings=()=>{
+
+        let host = prompt("Zadaj IP adresu v tvare '192.168.0.106' alebo 'lienka.local'");
+        localStorage.setItem("ipAddress", host);
+        //alert(localStorage.getItem("ipAddress"));
+    };
 
     componentWillMount(){
         isAdmin(localStorage.getItem("user")).then(value => this.setState({stats: value}))
@@ -108,7 +115,7 @@ export default class Menu extends React.Component {
                         <MenuItem primaryText="Credits" style={menuItemStyle}/>
                     </IconMenu>
                     <ToolbarSeparator />
-                    <IconButton iconClassName="connect"  style={iconStyles} />
+                    <IconButton iconClassName="connect"  style={iconStyles} onClick={this.connectionSettings} />
                     <IconButton iconClassName="logout"  onClick={this.logout}/>
 
 

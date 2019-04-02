@@ -14,11 +14,14 @@
     "react": "^16.3.1",
     "react-blockly-drawer": "^1.4.0",
     "react-dom": "^16.3.1",
+    "react-native-dialog-input": "^1.0.7",
     "react-redux": "^5.0.7",
+    "react-responsive-modal": "^3.6.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "react-table": "^6.8.2",
     "react-textfield": "0.0.6",
+    "react-websocket": "^2.0.1",
     "recompose": "^0.26.0",
     "redux": "^3.7.2"
   },
@@ -28,7 +31,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-
   "proxy": "http://localhost:3001/"
-
 }

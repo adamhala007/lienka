@@ -14,6 +14,10 @@ class Home extends Component {
         super(props);
     }
 
+    callPlayGround =() =>{
+        this.props.history.push("/playground");
+    };
+
     callEasyprog =() =>{
         this.props.history.push("/easyprog");
     };
@@ -32,10 +36,19 @@ class Home extends Component {
                 <div className={"content"}>
 
                     <div className="page">
+                        <div className="playgroundImage" onClick={this.callPlayGround}/>
+                        <div className="easyProgrammingText" >
+                            <h2>Playground</h2>
+                            <p>Vyklikaním postupností jednoduchých príkazov (šípka hore, dole, vľavo, vpravo, zvukový signál, svetelný signál, atď.) sa dajú vyskladať jednoduché programy.</p>
+                        </div>
+
+                    </div>
+
+                    <div className="page">
                         <div className="easyProgrammingImage" onClick={this.callEasyprog}/>
                         <div className="easyProgrammingText" >
                             <h2>Pre deti</h2>
-                            <p>Vyklikaním postupností jednoduchých príkazov (šípka hore, dole, vľavo, vpravo, zvukový signál, svetelný signál, atď.) sa dajú vyskladať jednoduché programi.</p>
+                            <p>Vyklikaním postupností jednoduchých príkazov (šípka hore, dole, vľavo, vpravo, zvukový signál, svetelný signál, atď.) sa dajú vyskladať jednoduché programy.</p>
                         </div>
 
                     </div>

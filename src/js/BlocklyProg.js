@@ -20,6 +20,8 @@ const color3 = "#FFB79A"; // background color
 const color4 = "#FFF6F3"; // hover
 const color5 = "#FF8858"; //
 
+const host = "192.168.0.113"; //"192.168.0.106
+const wsUri = "ws://" + (localStorage.getItem("ipAddress")!=null?localStorage.getItem("ipAddress"): host) + "/websocket/ws.cgi";
 
 class BlocklyProg extends Component {
 
@@ -32,6 +34,37 @@ class BlocklyProg extends Component {
         this.simulator = React.createRef();
     }
 
+    componentDidMount(){
+        // this is an "echo" websocket service
+        this.connection = new WebSocket(wsUri);
+        // listen to onmessage event
+        this.connection.onmessage = evt => {
+            // add the new message to state
+            this.setState({
+                messages : this.state.messages.concat([ evt.data ])
+            })
+        };
+
+        this.connection.onopen = evt =>{
+            console.log("CONNECTED");
+            this.doSend("WebSocket rocks");
+        };
+
+        this.connection.onclose = evt =>{
+            console.log("CONNECTED");
+            this.doSend("WebSocket rocks");
+        };
+
+        this.connection.onmessage = evt =>{
+            console.log("RECIEVED: " + evt.data);
+        };
+
+        this.connection.onerror = evt =>{
+            console.log("ERROR: " + evt.data);
+        };
+
+    }
+
     lastClicked=(clicked)=>{
         this.setState({
             lastClicked: clicked,
@@ -42,6 +75,13 @@ class BlocklyProg extends Component {
         let joined = this.state.program.concat(cmd);
         this.setState({ program: joined })
     };
+
+    doSend=(message)=>{
+        console.log("SENT: " + message);
+        console.log("ReadyState: " + this.connection.readyState);
+        this.connection.send(message);
+    };
+
 
     delete=()=>{
         if(this.state.lastClicked === undefined){
@@ -56,8 +96,32 @@ class BlocklyProg extends Component {
         }
     };
 
+    convertProgramToString=()=>{
+        let program = "";
+        for (let i = 0; i < this.state.program.length; i++) {
+            switch (this.state.program[i]) {
+                case "up":
+                    program += "MF;";
+                    break;
+                case "down":
+                    program += "MB;";
+                    break;
+                case "left":
+                    program += "ML;";
+                    break;
+                case "right":
+                    program += "MR;";
+                    break;
+                case "sound":
+                    program += "SO;";
+                    break;
+            }
+        }
+        return program;
+    };
+
     simulate = () =>{
-        document.getElementById("bSimulate").disabled = true;
+        //document.getElementById("bSimulate").disabled = true;
         let xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
         let elements = xml.getElementsByTagName("block");
         //console.log(elements)
@@ -67,11 +131,15 @@ class BlocklyProg extends Component {
         }
         this.interpret(elements.item(0));
 
-        this.simulator.current.setState({
+        console.log(this.state.program);
+        this.doSend("00");
+        this.doSend(this.convertProgramToString());
+
+        /*this.simulator.current.setState({
             index: 0,
             intervalId: null,
         })
-        this.simulator.current.timer();
+        this.simulator.current.timer();*/
     }
 
     load = async() => {
@@ -222,41 +290,36 @@ class BlocklyProg extends Component {
                 <div className={"content"}>
                     <div className={"blocklyDrawer"}>
                         <BlocklyDrawer
-                            tools={[up, down, left, right, sound, light]}
+                            tools={[up, down,  left, right, sound, light]}
                             onChange={(code, workspace) => {
                                 //console.log(code, workspace);
                             }}
+                            appearance={{
+                                categories: {
+                                    Movement: {
+                                        colour: '180'
+                                    },
+                                },
+                            }}
                         >
 
-                            <Category name="Movement" colour="200" >
-                                <Block type="forward" tools={[up]}/>
-                                <Block type="backward"/>
-                                <Block type="left" />
-                                <Block type="right" />
+
+                            {/*
+                            <Category name="Movement" colour="320">
+                                <Block type="forward" tool={[up]}/>
+
                             </Category>
+                        */}
 
                             <Category name="Cycles" colour="200">
-                                <Block type="controls_if" />
-                                <Block type="controls_whileUntil"/>
+
                                 <Block type="controls_repeat" />
-                                <Block type="controls_for" />
+
                             </Category>
 
-                            <Category name="Operators" colour="240">
-                                <Block type="logic_compare" />
-                                <Block type="logic_operation" />
-                                <Block type="logic_boolean" />
 
-                                <Block type="math_arithmetic"/>
-                            </Category>
-
-                            <Category name="Variables" custom="VARIABLE" />
-                            <Category name="Values">
+                            <Category name="Values" colour="240">
                                 <Block type="math_number" />
-                                <Block type="text" />
-                                <Block type="move_forward"/>
-                                <Block type="move_backward"/>
-
                             </Category>
                         </BlocklyDrawer>
                     </div>

@@ -4,6 +4,7 @@ import BlocklyDrawer, { Block, Category } from 'react-blockly-drawer';
 
 export const up =  {
     name: 'forward',
+    category: 'Movement',
     block: {
         init: function () {
             this.jsonInit({
@@ -33,6 +34,7 @@ export const up =  {
 export const down =  {
     name: 'backward',
     colour: 160,
+    category: 'Movement',
     block: {
         init: function () {
             this.jsonInit({
@@ -61,6 +63,7 @@ export const down =  {
 
 export const left =  {
     name: 'left',
+    category: 'Movement',
     block: {
         init: function () {
             this.jsonInit({
@@ -120,6 +123,7 @@ export const right =  {
 export const sound =  {
     name: 'sound',
     category: 'Extras',
+
     block: {
         init: function () {
             this.jsonInit({

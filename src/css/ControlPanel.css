@@ -138,6 +138,22 @@
     cursor: pointer;
 }
 
+#controlPanel-stop{
+    background-image: url("../images/controlButtons/stop.png");
+    width: 120px;
+    height: 120px;
+    margin: 10px;
+    background-color: Transparent;
+    border: none;
+    overflow: hidden;
+    outline:none;
+}
+
+#controlPanel-stop:hover{
+    background-image: url("../images/controlButtons/stop_hover.png");
+    cursor: pointer;
+}
+
 #controlPanel-right{
     background-image: url("../images/controlButtons/right.png");
     width: 120px;
