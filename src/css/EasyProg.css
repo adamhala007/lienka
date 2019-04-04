@@ -19,7 +19,8 @@
     width: 50%;
     height: auto;
     /*background-color: green;*/
-    float: left;
+    /*float: left;*/
+    margin: auto;
 }
 
 .simulator{
