@@ -173,9 +173,8 @@ class BlocklyProg extends Component {
 
     setProgram = (programs, chosen) => {
         console.log(programs[chosen]['program']);
-        this.setState({
-            program: programs[chosen]['program']
-        })
+        let xml = Blockly.Xml.textToDom(programs[chosen]['program']);
+        Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
     };
 
 
