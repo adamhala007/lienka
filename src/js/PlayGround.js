@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Menu from "./Menu";
 import '../css/EasyProg.css';
 import { withRouter} from 'react-router-dom'
-import ControlPanel from "./ControlPanelPlayground";
+import ControlPanelPlayground from "./ControlPanelPlayground";
 import SimulatorPanel from "./SimulatorPanel";
 import CommandPanel from "./CommandPanel";
 import {loadBlocklyProgram, saveBlocklyProgram} from "../firebase/client";
@@ -181,7 +181,7 @@ class PlayGround extends Component {
                 <div className={"content"}>
 
                     <div className="controls">
-                        <ControlPanel addCommand={this.addCommand} delete={this.delete} simulate={this.simulate} save={this.save} load={this.load}/>
+                        <ControlPanelPlayground addCommand={this.addCommand} delete={this.delete} simulate={this.simulate} save={this.save} load={this.load}/>
                     </div>
 
                     <div className="simulator">
@@ -193,7 +193,7 @@ class PlayGround extends Component {
 
                     </div>
 
-                    <ProgramChooser/>
+                    { /* <ProgramChooser/> */ }
 
                 </div>
                 <footer>

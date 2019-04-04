@@ -3,7 +3,7 @@ import "../css/ControlPanel.css"
 import ProgramChooser from "./ProgramChooser";
 
 
-class ControlPanel extends Component{
+class ControlPanelPlayground extends Component{
     constructor(props){
         super(props);
         this.state = {render:''}
@@ -22,15 +22,15 @@ class ControlPanel extends Component{
     }
 
     onClick =(comp) =>{
-        comp.props.load;
-        comp.handleClick.bind(comp, 'programChooser');
+        //comp.props.load;
+        //comp.handleClick.bind(comp, 'programChooser');
     };
 
-    _renderSubComp(){
+    /*_renderSubComp(){
         switch(this.state.render){
             case 'programChooser': return <ProgramChooser isOpen={true}/>
         }
-    }
+    }*/
 
     render(){
         return(
@@ -38,16 +38,19 @@ class ControlPanel extends Component{
                 <div className="controlPanel-lowerControls">
                     <div className="flex-grid">
                         <div className="col">
-                            <div id="controlPanel-save" onClick={this.props.save} />
+                            <div id="controlPanel-blank" />
+
+                            {/* <div id="controlPanel-save" onClick={this.props.save} /> */ }
                         </div>
                         <div className="col">
                             <div id="controlPanel-blank" />
                         </div>
                         <div className="col">
-                            <ProgramChooser />
-                            {/*   <div id="controlPanel-open" onClick={ this.handleClick.bind(this, 'programChooser')} />  */}
+                            <div id="controlPanel-blank" />
+                            {/*<ProgramChooser />
+                               <div id="controlPanel-open" onClick={ this.handleClick.bind(this, 'programChooser')} />  */}
                         </div>
-                        {this._renderSubComp()};
+                        {/* {this._renderSubComp()}; */}
                     </div>
                 </div>
                 <div className="controlPanel-upperControls">
@@ -78,4 +81,4 @@ class ControlPanel extends Component{
     }
 }
 
-export default (ControlPanel);
+export default (ControlPanelPlayground);

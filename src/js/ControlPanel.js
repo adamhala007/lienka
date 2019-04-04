@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "../css/ControlPanel.css"
+import ProgramChooser from "./ProgramChooser";
 
 
 class ControlPanel extends Component{
@@ -15,6 +16,7 @@ class ControlPanel extends Component{
     }
 
     render(){
+        console.log(this.props.load());
         return(
             <div className="controlPanel-content">
                 <div className="controlPanel-lowerControls">
@@ -26,7 +28,8 @@ class ControlPanel extends Component{
                             <div id="controlPanel-blank" />
                         </div>
                         <div className="col">
-                            <div id="controlPanel-open" onClick={this.props.load} />
+                            <ProgramChooser load={this.props.load} setProgram={this.props.setProgram}/>
+                            {/* <div id="controlPanel-open" onClick={this.props.load} /> */}
                         </div>
                     </div>
                 </div>

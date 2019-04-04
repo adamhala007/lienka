@@ -11,8 +11,9 @@ import Blockly from 'node-blockly/browser';
 import Workspace from 'node-blockly/browser';
 
 import BlocklyDrawer, { Block, Category } from 'react-blockly-drawer';
-import {saveBlocklyProgram, loadBlocklyProgram} from '../firebase/client';
+import {saveBlocklyProgram, loadBlocklyProgram, loadEasyProgram} from '../firebase/client';
 import axios from 'axios';
+import ProgramChooser from "./ProgramChooser";
 
 const color1 = "#FF4900"; // title
 const color2 = "#FF5A19"; // button color
@@ -20,7 +21,8 @@ const color3 = "#FFB79A"; // background color
 const color4 = "#FFF6F3"; // hover
 const color5 = "#FF8858"; //
 
-const host = "192.168.0.113"; //"192.168.0.106
+const host = "lienka.local";
+//const host = "192.168.0.113"; //"192.168.0.106
 const wsUri = "ws://" + (localStorage.getItem("ipAddress")!=null?localStorage.getItem("ipAddress"): host) + "/websocket/ws.cgi";
 
 class BlocklyProg extends Component {
@@ -142,7 +144,7 @@ class BlocklyProg extends Component {
         this.simulator.current.timer();*/
     }
 
-    load = async() => {
+    /*load = async() => {
 
         let programName = prompt("Please enter the name of the program:" , "");
         if (programName === null || programName === "") {
@@ -153,16 +155,20 @@ class BlocklyProg extends Component {
 
             Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
         }
-        //console.log(loadedValue['aa']['program']);
-        //console.log("LoadedValue: ");
-        //console.log(loadedValue);
-        /*let arr = [];
-        Object.keys(loadedValue).forEach(function(key) {
-            arr.push(key);
-        });*/
-        //console.log(arr);
 
 
+
+    };*/
+
+    load = async() => {
+        return await loadBlocklyProgram(localStorage.getItem("user"));
+    };
+
+    setProgram = (programs, chosen) => {
+        console.log(programs[chosen]['program']);
+        this.setState({
+            program: programs[chosen]['program']
+        })
     };
 
 
@@ -180,7 +186,7 @@ class BlocklyProg extends Component {
         }
 
         console.log(xml_text);
-    }
+    };
 
     run=()=>{
         let xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
@@ -205,7 +211,7 @@ class BlocklyProg extends Component {
 
         //console.log(xml.getElementsByTagName("block")[0].getAttribute("type"))
 
-    }
+    };
 
     interpret=(block)=>{
         //console.log(block.getAttribute("type"))
@@ -278,7 +284,7 @@ class BlocklyProg extends Component {
             console.log("there is no other next block")
         }
 
-    }
+    };
 
     render (){
         if(localStorage.getItem("user") === null){
@@ -328,7 +334,9 @@ class BlocklyProg extends Component {
                     <div className={"controlPanel"}>
                         <div className="controls2">
                             <div id={"controlPanel-save"} onClick={this.save}></div>
-                            <div id={"controlPanel-open"} onClick={this.load}></div>
+                            <ProgramChooser load={this.load} setProgram={this.setProgram}/>
+                            {/*  <div id={"controlPanel-open"} onClick={this.load}></div> */}
+
                             <button id="bSimulate" onClick={this.simulate}></button>
                         </div>
 

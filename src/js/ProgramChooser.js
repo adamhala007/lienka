@@ -1,10 +1,15 @@
 import {Component} from "react";
 import React from "react";
 import Modal from "react-responsive-modal";
+import '../css/ProgramChooser.css';
 
 const styles = {
     fontFamily: "sans-serif",
     textAlign: "center"
+};
+
+const stylesModal={
+    background: "red"
 };
 
 class ProgramChooser extends Component {
@@ -17,6 +22,14 @@ class ProgramChooser extends Component {
     }
 
 
+    getPrograms = async () => {
+        return await this.props.load();
+    };
+
+    setProgram = (programs, prog) =>{
+        this.props.setProgram(programs, prog);
+        this.onCloseModal();
+    };
 
     onOpenModal = () => {
 
@@ -31,20 +44,48 @@ class ProgramChooser extends Component {
         this.props.lastClicked(this.state.i);
     };
 
+    createList = () => {
+        let lis = [];
+
+        this.getPrograms().then(
+            (programs) => {
+                console.log(programs);console.log(this);
+                let self = this;
+                Object.keys(programs).map(function(key){
+
+                    console.log(this);
+                    lis.push(<li onClick={() => self.setProgram(programs,key)}>{key}</li>);
+
+                })
+            }
+
+        )
+        return lis;
+    }
+
     render() {
         const { open } = this.state;
 
 
+
+
+
+
         return (
-            <div style={styles}>
+            <div  style={styles}>
                 <div id={"controlPanel-open"} onClick={this.onOpenModal}> </div>
-                <Modal open={open} onClose={this.onCloseModal} center>
-                    <h2>Simple centered modal</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                        pulvinar risus non risus hendrerit venenatis. Pellentesque sit amet
-                        hendrerit risus, sed porttitor quam.
-                    </p>
+                <Modal id="modal-programs" style={stylesModal} open={open} onClose={this.onCloseModal} center>
+                    <h2>Vyber program:</h2>
+                    <ul id="programs-list">
+                    {
+
+                        this.createList()
+                        }
+
+
+
+                    </ul>
+
                 </Modal>
             </div>
         );

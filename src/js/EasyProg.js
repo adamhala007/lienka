@@ -16,9 +16,9 @@ const color3 = "#FFB79A"; // background color
 const color4 = "#FFF6F3"; // hover
 const color5 = "#FF8858"; //
 
-//var host = "lienka.local"; //"192.168.0.106
+var host = "lienka.local"; //"192.168.0.106
 //const host = "192.168.0.106"; //"192.168.0.106
-const host = "192.168.0.113"; //"192.168.0.106
+//const host = "192.168.0.113"; //"192.168.0.106
 const wsUri = "ws://" + (localStorage.getItem("ipAddress")!=null?localStorage.getItem("ipAddress"): host) + "/websocket/ws.cgi";
 
 class EasyProg extends Component {
@@ -136,7 +136,7 @@ class EasyProg extends Component {
 
     };
 
-    load = async() => {
+    /*load = async() => {
         let programName = prompt("Please enter the name of the program:" , "");
         if (programName === null || programName === "") {
 
@@ -147,6 +147,17 @@ class EasyProg extends Component {
             })
         }
 
+    };*/
+
+    load = async() => {
+        return await loadEasyProgram(localStorage.getItem("user"));
+    };
+
+    setProgram = (programs, chosen) => {
+        console.log(programs[chosen]['program'])
+        this.setState({
+            program: programs[chosen]['program']
+        })
     };
 
     render (){
@@ -159,7 +170,7 @@ class EasyProg extends Component {
                 <div className={"content"}>
 
                     <div className="controls">
-                        <ControlPanel addCommand={this.addCommand} delete={this.delete} simulate={this.simulate} save={this.save} load={this.load}/>
+                        <ControlPanel addCommand={this.addCommand} delete={this.delete} simulate={this.simulate} save={this.save} load={this.load} setProgram={this.setProgram}/>
                     </div>
 
                     <div className="simulator">
