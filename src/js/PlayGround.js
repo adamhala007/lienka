@@ -49,8 +49,8 @@ class PlayGround extends Component {
         };
 
         this.connection.onclose = evt =>{
-            console.log("CONNECTED");
-            this.doSend("WebSocket rocks");
+            console.log("DISCONNECTED");
+            //this.doSend("WebSocket rocks");
         };
 
         this.connection.onmessage = evt =>{
@@ -71,7 +71,10 @@ class PlayGround extends Component {
     doSend=(message)=>{
         console.log("SENT: " + message);
         console.log("ReadyState: " + this.connection.readyState);
-        this.connection.send(message);
+        if (this.connection.readyState == 1){
+            this.connection.send(message);
+        }
+
     };
 
     addCommand=(cmd)=>{

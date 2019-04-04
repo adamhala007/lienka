@@ -27,6 +27,7 @@
     height: auto;
     /*background-color: blue;*/
     float: left;
+    display: none;
 }
 
 .commands{

@@ -53,8 +53,8 @@ class BlocklyProg extends Component {
         };
 
         this.connection.onclose = evt =>{
-            console.log("CONNECTED");
-            this.doSend("WebSocket rocks");
+            console.log("DISCONNECTED");
+            //this.doSend("WebSocket rocks");
         };
 
         this.connection.onmessage = evt =>{
@@ -73,6 +73,10 @@ class BlocklyProg extends Component {
         })
     };
 
+    refresh =() =>{
+        this.connection = new WebSocket(wsUri);
+    };
+
     addCommand=(cmd)=>{
         let joined = this.state.program.concat(cmd);
         this.setState({ program: joined })
@@ -81,7 +85,10 @@ class BlocklyProg extends Component {
     doSend=(message)=>{
         console.log("SENT: " + message);
         console.log("ReadyState: " + this.connection.readyState);
-        this.connection.send(message);
+        if (this.connection.readyState == 1){
+            this.connection.send(message);
+        }
+
     };
 
 
