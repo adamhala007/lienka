@@ -6,7 +6,7 @@ import ControlPanelPlayground from "./ControlPanelPlayground";
 import SimulatorPanel from "./SimulatorPanel";
 import CommandPanel from "./CommandPanel";
 import {loadBlocklyProgram, saveBlocklyProgram} from "../firebase/client";
-import Blockly from "node-blockly/browser";
+//import Blockly from "node-blockly/browser";
 
 import {saveEasyProgram, loadEasyProgram} from '../firebase/client';
 import ProgramChooser from "./ProgramChooser";

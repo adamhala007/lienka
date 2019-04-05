@@ -38,8 +38,8 @@ class Home extends Component {
                     <div className="page">
                         <div className="playgroundImage" onClick={this.callPlayGround}/>
                         <div className="easyProgrammingText" >
-                            <h2>Playground</h2>
-                            <p>Vyklikaním postupností jednoduchých príkazov (šípka hore, dole, vľavo, vpravo, zvukový signál, svetelný signál, atď.) sa dajú vyskladať jednoduché programy.</p>
+                            <h2>Hracia plocha</h2>
+                            <p>Zadávanie hracích krokov (šípka hore, dole, vľavo, vpravo, zvukový signál, svetelný signál, atď.)</p>
                         </div>
 
                     </div>

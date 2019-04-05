@@ -7,7 +7,7 @@ import SimulatorPanel from "./SimulatorPanel";
 import CommandPanel from "./CommandPanel";
 import {loadBlocklyProgram, saveBlocklyProgram} from "../firebase/client";
 import Blockly from "node-blockly/browser";
-import ArrowKeysReact from 'arrow-keys-react';
+//import ArrowKeysReact from 'arrow-keys-react';
 
 import {saveEasyProgram, loadEasyProgram} from '../firebase/client';
 

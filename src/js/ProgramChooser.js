@@ -49,14 +49,18 @@ class ProgramChooser extends Component {
 
         this.getPrograms().then(
             (programs) => {
-                console.log(programs);console.log(this);
+                console.log(programs);
+                console.log(this);
                 let self = this;
-                Object.keys(programs).map(function(key){
+                if (programs !== null && programs !== undefined) {
+                    Object.keys(programs).map(function(key){
 
-                    console.log(this);
-                    lis.push(<li onClick={() => self.setProgram(programs,key)}>{key}</li>);
+                        console.log(this);
+                        lis.push(<li onClick={() => self.setProgram(programs,key)}>{key}</li>);
 
-                })
+                    })
+                }
+
             }
 
         )
