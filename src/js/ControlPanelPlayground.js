@@ -62,7 +62,7 @@ class ControlPanelPlayground extends Component{
                         </div>
                         <div className="col">
                             <div id="controlPanel-up" onClick={() => this.props.addCommand("up")} />
-                            <div id="controlPanel-stop" onClick={() => this.props.simulate()}/>
+                            <div id="controlPanel-stop" onClick={() => this.props.stop()}/>
                             <div id="controlPanel-down" onClick={() => this.props.addCommand("down")} />
                         </div>
                         <div className="col">

@@ -23,7 +23,8 @@
     "react-textfield": "0.0.6",
     "react-websocket": "^2.0.1",
     "recompose": "^0.26.0",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "react-input-component": "latest"
   },
   "scripts": {
     "start": "node ./server.js | react-scripts start",

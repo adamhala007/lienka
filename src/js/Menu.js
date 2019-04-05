@@ -83,6 +83,7 @@ export default class Menu extends React.Component {
 
     componentWillMount(){
         isAdmin(localStorage.getItem("user")).then(value => this.setState({stats: value}))
+        localStorage.setItem("connection", "disconnected")
     }
 
     render() {
@@ -98,9 +99,9 @@ export default class Menu extends React.Component {
                 </ToolbarGroup>
 
 
-
                 <ToolbarGroup style={menuStyle}>
-
+                    <ToolbarTitle text={localStorage.getItem("connection")} />
+                    <ToolbarSeparator />
                     <Avatar size={35} style={style}>{localStorage.getItem("user") !== null && localStorage.getItem("user").charAt(0)}</Avatar>
                     <ToolbarTitle text={localStorage.getItem("user")} />
                     <IconMenu style={menuItemStyle}

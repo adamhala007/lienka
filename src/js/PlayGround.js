@@ -34,7 +34,7 @@ class PlayGround extends Component {
     }
     componentDidMount(){
         // this is an "echo" websocket service
-        this.connection = new WebSocket(wsUri);
+        this.reconnect();
         // listen to onmessage event
         this.connection.onmessage = evt => {
             // add the new message to state
@@ -46,10 +46,13 @@ class PlayGround extends Component {
         this.connection.onopen = evt =>{
             console.log("CONNECTED");
             this.doSend("WebSocket rocks");
+            localStorage.setItem("connection", "CONNECTED");
         };
 
         this.connection.onclose = evt =>{
+            localStorage.setItem("connection", "DISCONNECTED");
             console.log("DISCONNECTED");
+            this.reconnect();
             //this.doSend("WebSocket rocks");
         };
 
@@ -59,9 +62,64 @@ class PlayGround extends Component {
 
         this.connection.onerror = evt =>{
             console.log("ERROR: " + evt.data);
+            localStorage.setItem("connection", "ERROR");
+            this.reconnect();
         };
 
     }
+
+    handleKeyDown = (e) =>{
+
+        console.log(e.key);
+
+        switch (e.key) {
+            case "w":
+            case "ArrowUp":
+            case "8":
+                this.addCommand("up");
+                break;
+
+            case "s":
+            case "ArrowDown":
+            case "2":
+                this.addCommand("down");
+                break;
+
+            case "a":
+            case "ArrowLeft":
+            case "4":
+                this.addCommand("left");
+                break;
+
+            case "d":
+            case "ArrowRight":
+            case "6":
+                this.addCommand("right");
+                break;
+
+            case "q":
+            case "7":
+                this.addCommand("sound");
+                break;
+
+            case "e":
+            case "9":
+                this.addCommand("light");
+                break;
+
+            default:
+                this.stop();
+                break;
+        }
+    };
+
+    reconnect =() => {
+        if (this.connection != null){
+            this.connection.close();
+        }
+        this.connection = new WebSocket(wsUri);
+    };
+
     lastClicked=(clicked)=>{
         this.setState({
             lastClicked: clicked,
@@ -91,6 +149,12 @@ class PlayGround extends Component {
                 break;
             case "right":
                 this.doSend("16");
+                break;
+            case "sound":
+                this.doSend("17");
+                break;
+            case "light":
+                this.doSend("19");
                 break;
             default:
                 this.doSend("10");
@@ -145,7 +209,15 @@ class PlayGround extends Component {
         //document.getElementById("controlPanel-go").disabled = true;
         //this.simulator.current.timer();
         //this.doSend("00");
+
         this.doSend(this.convertProgramToString());
+    };
+
+    stop = () =>{
+        //document.getElementById("controlPanel-go").disabled = true;
+        //this.simulator.current.timer();
+        //this.doSend("00");
+        this.doSend("10");
     };
 
     save = () => {
@@ -179,12 +251,12 @@ class PlayGround extends Component {
             this.props.history.push('/');
         }
         return(
-            <div className={"Home"}>
+            <div className={"Home"}  onKeyDown={this.handleKeyDown} tabIndex={0}>
                 <Menu history={this.props.history}/>
                 <div className={"content"}>
 
                     <div className="controls">
-                        <ControlPanelPlayground addCommand={this.addCommand} delete={this.delete} simulate={this.simulate} save={this.save} load={this.load}/>
+                        <ControlPanelPlayground addCommand={this.addCommand} delete={this.delete} stop={this.stop} save={this.save} load={this.load}/>
                     </div>
 
                     <div className="simulator">

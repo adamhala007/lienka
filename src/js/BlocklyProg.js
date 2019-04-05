@@ -38,7 +38,7 @@ class BlocklyProg extends Component {
 
     componentDidMount(){
         // this is an "echo" websocket service
-        this.connection = new WebSocket(wsUri);
+        this.reconnect();
         // listen to onmessage event
         this.connection.onmessage = evt => {
             // add the new message to state
@@ -54,6 +54,7 @@ class BlocklyProg extends Component {
 
         this.connection.onclose = evt =>{
             console.log("DISCONNECTED");
+            this.reconnect();
             //this.doSend("WebSocket rocks");
         };
 
@@ -63,9 +64,17 @@ class BlocklyProg extends Component {
 
         this.connection.onerror = evt =>{
             console.log("ERROR: " + evt.data);
+            this.reconnect();
         };
 
     }
+
+    reconnect =() => {
+        if (this.connection != null){
+            this.connection.close();
+        }
+        this.connection = new WebSocket(wsUri);
+    };
 
     lastClicked=(clicked)=>{
         this.setState({
@@ -123,6 +132,9 @@ class BlocklyProg extends Component {
                     break;
                 case "sound":
                     program += "SO;";
+                    break;
+                case "light":
+                    program += "SL;";
                     break;
             }
         }
