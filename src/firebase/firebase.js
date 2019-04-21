@@ -111,6 +111,7 @@ module.exports = {
     },
 
     getAllUsers: async() => {
+
         let result;
         await db.ref('users/').once("value", function(snapshot) {
             result= Object.keys(snapshot.val());

@@ -8,6 +8,7 @@ export const saveBlocklyProgram = (user, programName, program) =>{
         programName: programName,
         program: program,
     }
+    console.log("saveing blocklz program");
     axios.post('/saveBlocklyProgram', data )
         .then(res => {
             console.log("RES: " + res.data);
