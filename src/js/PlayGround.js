@@ -20,7 +20,7 @@ const color5 = "#FF8858"; //
 var host = "lienka.local"; //"192.168.0.106
 //const host = "192.168.0.106"; //"192.168.0.106
 //const host = "192.168.0.113"; //"192.168.0.106
-const wsUri = "ws://" + (localStorage.getItem("ipAddress")!=null?localStorage.getItem("ipAddress"): host) + "/websocket/ws.cgi";
+const wsUri = "wss://" + (localStorage.getItem("ipAddress")!=null?localStorage.getItem("ipAddress"): host) + "/websocket/ws.cgi";
 
 class PlayGround extends Component {
 
