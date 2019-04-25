@@ -234,28 +234,30 @@ class BlocklyProg extends Component {
     interpret=(block)=>{
         //console.log(block.getAttribute("type"))
 
+        console.log(block);
+        console.log(block.getElementsByTagName("field"));
         try {
            switch (block.getAttribute("type")){
                case "forward":
-                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent ; i++){
+                   for (let i = 0; i< block.getElementsByTagName("field").item(0).textContent ; i++){
                        this.state.program.push("up");
                    }
                    break;
 
                case "backward":
-                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent ; i++){
+                   for (let i = 0; i< block.getElementsByTagName("field").item(0).textContent ; i++){
                        this.state.program.push("down");
                    }
                    break;
 
                case "left":
-                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent / 90 ; i++){
+                   for (let i = 0; i< block.getElementsByTagName("field").item(0).textContent / 90 ; i++){
                        this.state.program.push("left");
                    }
                    break;
 
                case "right":
-                   for (let i = 0; i< block.getElementsByTagName("value").item(0).childNodes.item(0).childNodes.item(0).textContent / 90 ; i++){
+                   for (let i = 0; i< block.getElementsByTagName("field").item(0).textContent / 90 ; i++){
                        this.state.program.push("right");
                    }
                    break;
@@ -304,6 +306,17 @@ class BlocklyProg extends Component {
 
     };
 
+    interpretWithRepeat=(block)=>{
+        // if block == repeat :
+        // get and save field times
+        // interpret statement block and save it as array of program commands , e.g. ["left", "right"]
+        //
+        //
+        // ([actual interperet], <remaining blocks>)
+
+        //return
+    }
+
     render (){
         if(localStorage.getItem("user") === null){
             this.props.history.push('/');
@@ -311,7 +324,13 @@ class BlocklyProg extends Component {
         return(
             <div className={"Home"}>
                 <Menu history={this.props.history}/>
+
                 <div className={"content"}>
+
+                    <div className="hint">
+                        Vyskladajte program pomocou blokov z menu a následne tento program môžete spustiť tlačidlom ŠTART.
+                    </div>
+
                     <div className={"blocklyDrawer"}>
                         <BlocklyDrawer
                             tools={[up, down,  left, right, sound, light]}
@@ -335,15 +354,15 @@ class BlocklyProg extends Component {
                             </Category>
                         */}
 
-                            <Category name="Cycles" colour="200">
+                            {/* <Category name="Cycles" colour="200">
 
-                                <Block type="controls_repeat" />
+                                 <Block type="controls_repeat" />
 
-                            </Category>
+                            </Category> */}
 
 
                             <Category name="Values" colour="240">
-                                <Block type="math_number" />
+                                {/*<Block type="math_number" /> */}
                             </Category>
                         </BlocklyDrawer>
                     </div>
@@ -369,7 +388,7 @@ class BlocklyProg extends Component {
 
                 </div>
                 <footer>
-                    <p>© 2018 Adam Halász.  All rights reserved.</p>
+                    <p>© 2019 Adam Halász.  All rights reserved.</p>
                 </footer>
             </div>
 

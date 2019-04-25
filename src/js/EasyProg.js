@@ -292,6 +292,10 @@ class EasyProg extends Component {
                 <Menu history={this.props.history}/>
                 <div className={"content"}  >
 
+                    <div className="hint">
+                        Vyskladajte program pomocou obrázkov a následne tento program môžete spustiť tlačidlom ŠTART.
+                    </div>
+
                     <div className="controls">
                         <ControlPanel addCommand={this.addCommand} delete={this.delete} simulate={this.simulate} save={this.save} load={this.load} setProgram={this.setProgram} reconnect={this.reconnect}/>
                     </div>
@@ -307,7 +311,7 @@ class EasyProg extends Component {
 
                 </div>
                 <footer>
-                    <p>© 2018 Adam Halász.  All rights reserved.</p>
+                    <p>© 2019 Adam Halász.  All rights reserved.</p>
                 </footer>
             </div>
 

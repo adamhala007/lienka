@@ -13,8 +13,8 @@ app.use(bodyParser.json());
 let result = {};
 const firebase = require('./src/firebase/firebase');
 let md5 = require('md5');
-
-app.listen(3001,() =>  console.log("Running on localhost:3001"));
+const PORT = process.env.PORT || 5000
+app.listen(PORT,() =>  console.log("Running on localhost:3001")); // 3001
 
 // listen for all GET requests and server built html, can listen for "/" also, in case you have another GET endpoints
 app.get("*", (req, res) => {

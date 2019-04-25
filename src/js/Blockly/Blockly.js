@@ -11,9 +11,9 @@ export const up =  {
                 message0: 'move forward %1 steps',
                 args0: [
                     {
-                        type: 'input_value',
+                        type: 'field_number',
                         name: 'up',
-                        check: 'Number',
+                        value: 1,
                     },
 
                 ],
@@ -41,9 +41,9 @@ export const down =  {
                 message0: 'move backward %1 steps',
                 args0: [
                     {
-                        type: 'input_value',
+                        type: 'field_number',
                         name: 'down',
-                        check: 'Number',
+                        value: 1,
                     },
 
                 ],
@@ -67,12 +67,12 @@ export const left =  {
     block: {
         init: function () {
             this.jsonInit({
-                message0: 'turn left %1°',
+                message0: 'turn left %1 degrees',
                 args0: [
                     {
-                        type: 'input_value',
-                        name: 'left',
-                        check: 'Number',
+                        type: 'field_number',
+                        name: 'degree',
+                        value: 90
                     },
 
                 ],
@@ -96,12 +96,12 @@ export const right =  {
     block: {
         init: function () {
             this.jsonInit({
-                message0: 'turn right %1°',
+                message0: 'turn right %1 degrees',
                 args0: [
                     {
-                        type: 'input_value',
+                        type: 'field_number',
                         name: 'right',
-                        check: 'Number',
+                        value: 90
                     },
 
                 ],

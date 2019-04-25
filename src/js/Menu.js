@@ -4,8 +4,8 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import RaisedButton from 'material-ui/RaisedButton';
+//import DropDownMenu from 'material-ui/DropDownMenu';
+//import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import Avatar from 'material-ui/Avatar';
 import {logOut, isAdmin} from '../firebase/client';
@@ -87,14 +87,14 @@ export default class Menu extends React.Component {
     }
 
     render() {
-        console.log("isAdmin", isAdmin(localStorage.getItem("user")).then(value => console.log(value)));
+        //console.log("isAdmin", isAdmin(localStorage.getItem("user")).then(value => console.log(value)));
         return (
             <Toolbar
                 style={menuStyle}>
 
                 <ToolbarGroup firstChild={true}>
 
-                    <FontIcon className="logo" />
+                    <FontIcon className="logo" onClick={this.homepage}/>
 
                 </ToolbarGroup>
 

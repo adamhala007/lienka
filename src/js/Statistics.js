@@ -256,7 +256,7 @@ class Home extends Component {
 
                 </div>
                 <footer>
-                    <p>© 2018 Adam Halász.  All rights reserved.</p>
+                    <p>© 2019 Adam Halász.  All rights reserved.</p>
                 </footer>
             </div>
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Menu from "./Menu";
 import '../css/Home.css';
-import { Link, withRouter} from 'react-router-dom'
+//import { Link, withRouter} from 'react-router-dom'
 
 const color1 = "#FF4900"; // title
 const color2 = "#FF5A19"; // button color
@@ -63,7 +63,7 @@ class Home extends Component {
                     </div>
                 </div>
                 <footer>
-                    <p>© 2018 Adam Halász.  All rights reserved.</p>
+                    <p>© 2019 Adam Halász.  All rights reserved.</p>
                 </footer>
             </div>
 

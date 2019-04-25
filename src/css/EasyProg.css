@@ -15,6 +15,13 @@
 
 }
 
+.hint {
+    margin-bottom: 20px;
+    font-family: "Source Code Pro Semibold";
+    color: black;
+    font-size: 24px;
+}
+
 .controls{
     width: 50%;
     height: auto;

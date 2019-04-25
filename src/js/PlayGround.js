@@ -255,6 +255,10 @@ class PlayGround extends Component {
                 <Menu history={this.props.history}/>
                 <div className={"content"}>
 
+                    <div className="hint">
+                        Riaďte Lienku pomocou tlačidiel.
+                    </div>
+
                     <div className="controls">
                         <ControlPanelPlayground addCommand={this.addCommand} delete={this.delete} stop={this.stop} save={this.save} load={this.load}/>
                     </div>
@@ -272,7 +276,7 @@ class PlayGround extends Component {
 
                 </div>
                 <footer>
-                    <p>© 2018 Adam Halász.  All rights reserved.</p>
+                    <p>© 2019 Adam Halász.  All rights reserved.</p>
                 </footer>
             </div>
 

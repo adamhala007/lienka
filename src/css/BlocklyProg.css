@@ -15,6 +15,12 @@
 
 }
 
+.hint {
+    margin-bottom: 20px;
+    font-family: "Source Code Pro Semibold";
+    color: white;
+}
+
 .controlPanel{
     display: inline-block;
     width: auto;
@@ -77,7 +83,7 @@
 }
 
 #bSimulate{
-    background-image: url("../images/controlButtons/go.png");
+    background-image: url("../images/controlButtons/start.png");
     width: 120px;
     height: 120px;
     margin: 10px;
@@ -88,7 +94,7 @@
 }
 
 #bSimulate:hover{
-    background-image: url("../images/controlButtons/go_hover.png");
+    background-image: url("../images/controlButtons/start_hover.png");
     cursor: pointer;
 }
 
